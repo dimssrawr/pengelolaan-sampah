@@ -294,7 +294,7 @@
       border-color: #fde68a;
     }
 
-    /* COLOR PALETTE BOXES (FOR PHILOSOPHY CHAPTER) */
+    /* COLOR PALETTES */
     .palette-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -440,7 +440,7 @@
       font-size: 8pt;
     }
 
-    /* COVER PAGE */
+    /* COVER */
     .cover-wrapper {
       width: 100%;
       height: 100%;
@@ -573,7 +573,7 @@
   <!-- Floating Print Controls (Hidden on Print) -->
   <div class="no-print no-print-bar">
     <div class="bar-info">
-      <strong>User & Admin Manual EcoResik</strong> — Edisi Desain Khusus & Filosofi Hijau
+      <strong>User & Admin Manual EcoResik</strong> — Edisi To The Point & Fokus User-Admin
     </div>
     <button class="btn-save-pdf" onclick="window.print()">
       🖨️ Cetak / Simpan ke PDF Sekarang
@@ -611,7 +611,7 @@
             </div>
             <div class="cover-meta-item">
               <span class="cover-meta-label">Role Panduan</span>
-              <span class="cover-meta-value">Warga & Admin</span>
+              <span class="cover-meta-value">User & Admin</span>
             </div>
             <div class="cover-meta-item">
               <span class="cover-meta-label">Teknologi</span>
@@ -619,7 +619,7 @@
             </div>
             <div class="cover-meta-item">
               <span class="cover-meta-label">Versi Dokumen</span>
-              <span class="cover-meta-value">Versi 2.3 Lengkap</span>
+              <span class="cover-meta-value">Versi 2.4 Final</span>
             </div>
           </div>
 
@@ -631,7 +631,7 @@
       </div>
     </div>
 
-    <!-- ==================== HALAMAN 2: TENTANG PANDUAN & HAK AKSES ==================== -->
+    <!-- ==================== HALAMAN 2: TENTANG PANDUAN & SOP USER-ADMIN ==================== -->
     <div class="page" id="page-2">
       <div class="page-header-banner">
         <div class="header-branding">
@@ -642,7 +642,7 @@
           </div>
         </div>
         <div class="header-chapter-badge">
-          <span class="badge-dot"></span> Hak Akses & Prosedur
+          <span class="badge-dot"></span> Hak Akses & SOP
         </div>
       </div>
 
@@ -651,91 +651,76 @@
 
         <div class="card-box emerald">
           <p style="margin: 0; font-size: 8.5pt;">
-            Buku panduan operasional ini disusun secara komprehensif untuk dua peran utama sistem, yaitu <strong>Role Warga (User/Masyarakat)</strong> dan <strong>Role Administrator (Pengelola Dinas)</strong>. Panduan ini menjamin standarisasi alur kerja penginputan laporan sampah oleh warga, verifikasi timbangan riil, serta tata kelola data oleh administrator dinas kebersihan.
+            Buku panduan operasional ini disusun secara jelas dan ringkas untuk dua peran utama sistem, yaitu <strong>Role Warga (User/Masyarakat)</strong> dan <strong>Role Administrator (Pengelola Dinas)</strong>. Panduan ini menjelaskan alur penginputan laporan oleh warga dan tindak lanjut validasi oleh administrator.
           </p>
         </div>
 
-        <h2 class="section-head">Matriks Perbandingan Hak Akses (Role Matrix)</h2>
+        <h2 class="section-head">Matriks Perbandingan Hak Akses (User vs Admin)</h2>
         <div class="table-container">
           <table class="manual-table">
             <thead>
               <tr>
-                <th style="width: 28%;">Fitur & Modul Sistem</th>
-                <th style="width: 22%;">Publik (Tamu)</th>
-                <th style="width: 25%;">Role Warga (User)</th>
-                <th style="width: 25%;">Role Administrator</th>
+                <th style="width: 35%;">Fitur & Modul Sistem</th>
+                <th style="width: 32%;">Role Warga (User)</th>
+                <th style="width: 33%;">Role Administrator</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="item-col">Lihat Statistik & Galeri</td>
-                <td><span class="badge badge-green">Diizinkan</span></td>
+                <td class="item-col">Lihat Statistik & Beranda Publik</td>
                 <td><span class="badge badge-green">Diizinkan</span></td>
                 <td><span class="badge badge-green">Diizinkan</span></td>
               </tr>
               <tr>
                 <td class="item-col">Registrasi Akun Baru</td>
-                <td><span class="badge badge-green">Diizinkan (Mandiri)</span></td>
-                <td><span class="badge badge-user">Sudah Terdaftar</span></td>
-                <td><span class="badge badge-admin">Super Admin</span></td>
+                <td><span class="badge badge-green">Mandiri (Via Web)</span></td>
+                <td><span class="badge badge-admin">Akun Khusus Pengelola</span></td>
               </tr>
               <tr>
-                <td class="item-col">Kirim Laporan Sampah (Foto)</td>
-                <td><span class="badge badge-admin">Wajib Login</span></td>
+                <td class="item-col">Kirim Laporan Sampah (Upload Foto)</td>
                 <td><span class="badge badge-green">Penuh (Area Milik)</span></td>
                 <td><span class="badge badge-green">Penuh (Semua Wilayah)</span></td>
               </tr>
               <tr>
-                <td class="item-col">Manajemen Laporan Pribadi</td>
-                <td><span class="badge badge-admin">Tidak Ada</span></td>
-                <td><span class="badge badge-green">Edit & Hapus</span></td>
-                <td><span class="badge badge-green">Semua Laporan</span></td>
+                <td class="item-col">Kelola & Hapus Laporan Pribadi</td>
+                <td><span class="badge badge-green">Laporan Sendiri</span></td>
+                <td><span class="badge badge-green">Semua Laporan Masuk</span></td>
               </tr>
               <tr>
                 <td class="item-col">Verifikasi Timbangan Riil</td>
-                <td><span class="badge badge-admin">Terkunci</span></td>
                 <td><span class="badge badge-admin">Terkunci</span></td>
                 <td><span class="badge badge-green">Wewenang Penuh</span></td>
               </tr>
               <tr>
                 <td class="item-col">Kelola Master Jenis Sampah</td>
                 <td><span class="badge badge-admin">Terkunci</span></td>
-                <td><span class="badge badge-admin">Terkunci</span></td>
                 <td><span class="badge badge-green">CRUD Penuh</span></td>
               </tr>
               <tr>
-                <td class="item-col">Kelola Master Wilayah & Zonasi</td>
-                <td><span class="badge badge-admin">Terkunci</span></td>
+                <td class="item-col">Kelola Master Wilayah Pelaporan</td>
                 <td><span class="badge badge-admin">Terkunci</span></td>
                 <td><span class="badge badge-green">CRUD Penuh</span></td>
-              </tr>
-              <tr>
-                <td class="item-col">Penjadwalan Truk & Bank Sampah</td>
-                <td><span class="badge badge-admin">Terkunci</span></td>
-                <td><span class="badge badge-admin">Terkunci</span></td>
-                <td><span class="badge badge-green">Wewenang Penuh</span></td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <h2 class="section-head">Alur Kerja Penanganan Laporan Sampah</h2>
+        <h2 class="section-head">Alur Kerja Penanganan Sampah (SOP User & Admin)</h2>
         <div class="card-box blue" style="font-size: 8.5pt;">
-          <strong>SOP Terpadu:</strong><br>
-          1. <strong>Warga:</strong> Mengambil foto bukti temuan sampah &rarr; Melaporkan via Portal Warga.<br>
-          2. <strong>Sistem:</strong> Menyimpan laporan dan bukti foto secara real-time ke sistem informasi.<br>
-          3. <strong>Administrator:</strong> Memverifikasi laporan &rarr; Menugaskan armada petugas terdekat.<br>
-          4. <strong>Petugas:</strong> Menimbang berat riil di lokasi dan mengangkut sampah ke TPA/Bank Sampah.
+          <strong>SOP Alur Penanganan (Hanya Melibatkan User & Admin):</strong><br>
+          1. <strong>User (Warga):</strong> Mengambil foto sampah di lapangan &rarr; Melaporkan melalui Portal Warga.<br>
+          2. <strong>Admin:</strong> Memeriksa laporan masuk & foto di Admin Portal &rarr; Mengatur penanganan wilayah.<br>
+          3. <strong>Admin:</strong> Melakukan verifikasi bobot riil hasil penimbangan dan menutup status laporan.
         </div>
       </div>
 
       <div class="page-footer-banner">
-        <div>EcoResik Waste Management &bull; Hak Akses & Alur Kerja</div>
+        <div>EcoResik Waste Management &bull; Hak Akses & SOP User-Admin</div>
         <div class="footer-page-pill">Halaman ii</div>
       </div>
     </div>
 
-    <!-- ==================== HALAMAN 3: FILOSOFI WARNA HIJAU & DESAIN ==================== -->
+    <!-- ==================== HALAMAN 3: KENAPA MEMILIH WARNA HIJAU (TO THE POINT) ==================== -->
     <div class="page" id="page-3">
       <div class="page-header-banner">
         <div class="header-branding">
@@ -751,10 +736,10 @@
       </div>
 
       <div class="page-content">
-        <h1 class="chapter-head"><span class="num-circle">ii</span> Filosofi Desain & Makna Pemilihan Warna Hijau</h1>
+        <h1 class="chapter-head"><span class="num-circle">ii</span> Kenapa Memilih Warna Hijau? (To The Point)</h1>
 
-        <p>
-          Pemilihan palet warna pada antarmuka aplikasi EcoResik dan dokumen panduan ini bukan sekadar pertimbangan estetika visual, melainkan didasarkan pada <strong>prinsip psikologi warna, simbolisme kelestarian lingkungan, dan standar aksesibilitas antarmuka pengguna (UI/UX)</strong>:
+        <p style="margin-bottom: 4px;">
+          Warna hijau dipilih sebagai warna identitas utama EcoResik karena 4 alasan pokok berikut:
         </p>
 
         <div class="palette-grid">
@@ -788,31 +773,37 @@
           </div>
         </div>
 
-        <h2 class="section-head">Alasan Utama Pemilihan Warna Hijau EcoResik:</h2>
-        <div class="card-box emerald">
+        <div class="card-box emerald" style="padding: 10px 14px; margin-bottom: 8px;">
+          <h2 class="section-head" style="margin-top: 0; font-size: 9.5pt;">🌿 1. Simbol Resmi Lingkungan & Go Green</h2>
           <p style="margin: 0; font-size: 8.5pt;">
-            <strong>1. Representasi Universal Gerakan Peduli Lingkungan (Go Green):</strong><br>
-            Warna hijau secara psikologis dan kultural merupakan representasi global untuk alam, daun, dan kesegaran. Dalam ekosistem persampahan, hijau melambangkan daur ulang (*recycling*), pengelolaan sampah organik, dan tekad mewujudkan kota yang asri dan bebas sampah liar.
+            Hijau adalah lambang universal alam asri, kebersihan, dan daur ulang (*recycling*). Menjadikan hijau sebagai warna utama langsung mencerminkan fungsi aplikasi sebagai sistem pengelolaan sampah ramah lingkungan.
           </p>
         </div>
 
-        <div class="card-box blue">
+        <div class="card-box blue" style="padding: 10px 14px; margin-bottom: 8px;">
+          <h2 class="section-head" style="margin-top: 0; font-size: 9.5pt;">✨ 2. Mengubah Kesan Sampah Jadi Bersih & Positif</h2>
           <p style="margin: 0; font-size: 8.5pt;">
-            <strong>2. Psikologi Kenyamanan, Kebersihan, dan Optimisme:</strong><br>
-            Sampah sering diidentikkan dengan sesuatu yang kotor dan menimbulkan keengganan. Penggunaan warna hijau zamrud (<em>Emerald</em>) dipadukan dengan aksen biru bersih (<em>Water Blue</em>) memberikan kesan bahwa penanganan sampah adalah aksi positif, membangkitkan rasa segar, aman, dan optimis bagi warga yang melapor.
+            Sampah biasanya dipersepsikan kotor dan bau. Warna hijau segar (<em>Eco Green</em>) menghadirkan nuansa higienis, segar, dan membangkitkan rasa optimis bagi masyarakat saat membuka aplikasi.
           </p>
         </div>
 
-        <div class="card-box amber">
+        <div class="card-box amber" style="padding: 10px 14px; margin-bottom: 8px;">
+          <h2 class="section-head" style="margin-top: 0; font-size: 9.5pt;">👁️ 3. Nyaman di Mata & Tidak Melelahkan (Eye-Friendly)</h2>
           <p style="margin: 0; font-size: 8.5pt;">
-            <strong>3. Aksesibilitas Visual & Keterbacaan Tinggi (Standar WCAG 2.1):</strong><br>
-            Perpaduan hijau pekat (<em>Deep Forest Green</em>) dengan teks putih atau abu-abu terang memberikan tingkat rasio kontras warna (*contrast ratio*) di atas 7:1 (Level AAA), sehingga dokumen dan layar aplikasi sangat nyaman dan mudah dibaca oleh warga lintas generasi.
+            Warna hijau zamrud memiliki panjang gelombang spektrum cahaya yang paling rileks ditangkap mata manusia. Kontrasnya dengan teks putih sangat tajam (Standar Aksesibilitas WCAG AAA), sehingga tidak membuat mata silau atau cepat lelah.
+          </p>
+        </div>
+
+        <div class="card-box emerald" style="padding: 10px 14px;">
+          <h2 class="section-head" style="margin-top: 0; font-size: 9.5pt;">🏛️ 4. Tampilan Resmi & Profesional</h2>
+          <p style="margin: 0; font-size: 8.5pt;">
+            Kombinasi hijau tua (<em>Deep Emerald</em>) dan abu-abu gelap (<em>Slate</em>) memberikan citra portal web resmi dinas pemerintahan yang modern, terpercaya, dan amanah.
           </p>
         </div>
       </div>
 
       <div class="page-footer-banner">
-        <div>EcoResik Waste Management &bull; Filosofi Desain & Warna</div>
+        <div>EcoResik Waste Management &bull; Filosofi Warna (To The Point)</div>
         <div class="footer-page-pill">Halaman iii</div>
       </div>
     </div>
@@ -835,8 +826,8 @@
       <div class="page-content">
         <h1 class="chapter-head"><span class="num-circle">iii</span> Daftar Isi Dokumen</h1>
 
-        <div class="toc-row bold"><span class="toc-title">TENTANG PANDUAN & MATRIKS HAK AKSES</span><span class="toc-dots"></span><span class="toc-pnum">II</span></div>
-        <div class="toc-row bold"><span class="toc-title">FILOSOFI DESAIN & MAKNA PEMILIHAN WARNA HIJAU</span><span class="toc-dots"></span><span class="toc-pnum">III</span></div>
+        <div class="toc-row bold"><span class="toc-title">TENTANG PANDUAN & SOP USER-ADMIN</span><span class="toc-dots"></span><span class="toc-pnum">II</span></div>
+        <div class="toc-row bold"><span class="toc-title">KENAPA MEMILIH WARNA HIJAU? (TO THE POINT)</span><span class="toc-dots"></span><span class="toc-pnum">III</span></div>
         <div class="toc-row bold"><span class="toc-title">DAFTAR ISI DOKUMEN</span><span class="toc-dots"></span><span class="toc-pnum">IV</span></div>
 
         <div class="toc-row bold" style="margin-top: 8px;"><span class="toc-title">1 PENDAHULUAN & KEBUTUHAN SISTEM</span><span class="toc-dots"></span><span class="toc-pnum">1</span></div>
@@ -865,11 +856,9 @@
         <div class="toc-row" style="margin-left: 12px;"><span class="toc-title">6.2 Verifikasi Timbangan Riil & Koreksi Data</span><span class="toc-dots"></span><span class="toc-pnum">8</span></div>
         <div class="toc-row" style="margin-left: 12px;"><span class="toc-title">6.3 Manajemen Master Jenis Sampah</span><span class="toc-dots"></span><span class="toc-pnum">9</span></div>
         <div class="toc-row" style="margin-left: 12px;"><span class="toc-title">6.4 Manajemen Master Wilayah Pelaporan (Zonasi)</span><span class="toc-dots"></span><span class="toc-pnum">10</span></div>
-        <div class="toc-row" style="margin-left: 12px;"><span class="toc-title">6.5 Penjadwalan Armada & Penugasan Petugas</span><span class="toc-dots"></span><span class="toc-pnum">11</span></div>
-        <div class="toc-row" style="margin-left: 12px;"><span class="toc-title">6.6 Manajemen Bank Sampah & Harga Daur Ulang</span><span class="toc-dots"></span><span class="toc-pnum">12</span></div>
 
-        <div class="toc-row bold" style="margin-top: 8px;"><span class="toc-title">7 REPOSITORI & DEPLOYMENT CLOUD VERCEL</span><span class="toc-dots"></span><span class="toc-pnum">13</span></div>
-        <div class="toc-row bold" style="margin-top: 8px;"><span class="toc-title">8 RIWAYAT DOKUMEN & LEMBAR PENGESAHAN</span><span class="toc-dots"></span><span class="toc-pnum">14</span></div>
+        <div class="toc-row bold" style="margin-top: 8px;"><span class="toc-title">7 REPOSITORI GITHUB & DEPLOYMENT CLOUD VERCEL</span><span class="toc-dots"></span><span class="toc-pnum">11</span></div>
+        <div class="toc-row bold" style="margin-top: 8px;"><span class="toc-title">8 RIWAYAT DOKUMEN & LEMBAR PENGESAHAN</span><span class="toc-dots"></span><span class="toc-pnum">12</span></div>
       </div>
 
       <div class="page-footer-banner">
@@ -898,7 +887,7 @@
 
         <h2 class="section-head">1.1 Latar Belakang & Tujuan Pembuatan Dokumen</h2>
         <p>
-          Dokumen petunjuk penggunaan aplikasi (<em>User & Admin Manual</em>) ini disusun sebagai pedoman resmi dalam mengoperasikan Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik). Sistem ini dirancang untuk memudahkan partisipasi aktif masyarakat dalam melaporkan timbulan sampah liar, sekaligus memfasilitasi Dinas Lingkungan Hidup dalam melakukan verifikasi timbangan riil, pengaturan jadwal armada kebersihan, dan penyaluran ke Bank Sampah.
+          Dokumen petunjuk penggunaan aplikasi (<em>User & Admin Manual</em>) ini disusun sebagai pedoman resmi dalam mengoperasikan Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik). Sistem ini dirancang untuk memudahkan partisipasi aktif masyarakat dalam melaporkan timbulan sampah liar, sekaligus memfasilitasi Dinas Kebersihan / Administrator dalam melakukan verifikasi timbangan riil dan pengelolaan zonasi wilayah.
         </p>
 
         <h2 class="section-head">1.2 Kebutuhan Perangkat Lunak Pendukung (Software Requirement)</h2>
@@ -1053,7 +1042,7 @@
               </tr>
               <tr>
                 <td class="item-col">Nomor WhatsApp / HP</td>
-                <td>Nomor kontak aktif guna koordinasi penjemputan armada ke lokasi.</td>
+                <td>Nomor kontak aktif guna koordinasi tindak lanjut ke lokasi.</td>
               </tr>
               <tr>
                 <td class="item-col">Kata Sandi (Password)</td>
@@ -1297,7 +1286,7 @@
             <thead>
               <tr>
                 <th style="width: 25%;">Kolom Data</th>
-                <th style="width: 75%;">Deskripsi Fungsi Bagi Petugas & Administrator</th>
+                <th style="width: 75%;">Deskripsi Fungsi Bagi Administrator</th>
               </tr>
             </thead>
             <tbody>
@@ -1311,11 +1300,11 @@
               </tr>
               <tr>
                 <td class="item-col">Berat (Kg)</td>
-                <td>Estimasi bobot sampah untuk menentukan jenis truk pengangkut yang sesuai.</td>
+                <td>Estimasi bobot sampah untuk menentukan skala penanganan yang sesuai.</td>
               </tr>
               <tr>
                 <td class="item-col">Lokasi & Pelapor</td>
-                <td>Nama kecamatan dan identitas warga pelapor untuk koordinasi penjemputan.</td>
+                <td>Nama kecamatan dan identitas warga pelapor untuk koordinasi penanganan.</td>
               </tr>
             </tbody>
           </table>
@@ -1347,50 +1336,50 @@
         <h1 class="chapter-head"><span class="num-circle">6.2</span> Verifikasi Timbangan Riil & Koreksi Data</h1>
 
         <p>
-          Laporan warga merupakan estimasi awal. Petugas armada yang tiba di lokasi akan melakukan penimbangan aktual menggunakan timbangan truk, kemudian Administrator mengesahkan bobot riil ke sistem:
+          Laporan warga merupakan estimasi awal. Setelah penanganan dilakukan di lokasi, Administrator mengoreksi bobot aktual sampah ke dalam sistem:
         </p>
 
         <div class="card-box emerald">
           <h2 class="section-head" style="margin-top: 0;">Langkah demi Langkah Verifikasi Data:</h2>
           <ol style="margin-bottom: 0;">
-            <li>Pada tabel monitoring laporan admin, temukan laporan yang telah ditindaklanjuti petugas.</li>
+            <li>Pada tabel monitoring laporan admin, temukan laporan yang telah ditindaklanjuti.</li>
             <li>Klik tombol <strong>Sunting (Ikon Pensil Hijau)</strong> pada baris laporan tersebut.</li>
             <li>Formulir di sisi kiri akan otomatis terisi dengan data laporan yang dipilih.</li>
-            <li>Perbarui nilai pada kolom <strong>Berat Sampah (KG)</strong> sesuai dengan hasil timbangan riil armada.</li>
+            <li>Perbarui nilai pada kolom <strong>Berat Sampah (KG)</strong> sesuai dengan hasil timbangan riil.</li>
             <li>Unggah foto baru kondisi lokasi setelah sampah dibersihkan (opsional sebagai bukti tuntas).</li>
             <li>Klik tombol <span class="badge badge-green">Ubah Laporan</span> untuk mengesahkan data tervalidasi.</li>
           </ol>
         </div>
 
-        <h2 class="section-head">Standard Operating Procedure (SOP) Penanganan Sampah Liar</h2>
+        <h2 class="section-head">SOP Penanganan Sampah (Hanya User & Admin)</h2>
         <div class="table-container">
           <table class="manual-table">
             <thead>
               <tr>
                 <th style="width: 25%;">Tahapan</th>
-                <th style="width: 45%;">Tindakan Administrator</th>
+                <th style="width: 45%;">Tindakan (User / Admin)</th>
                 <th style="width: 30%;">Status Penanganan</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="item-col">1. Verifikasi Awal</td>
-                <td>Memeriksa keaslian foto bukti dan kesesuaian lokasi kecamatan.</td>
+                <td class="item-col">1. Pelaporan (User)</td>
+                <td><strong>User:</strong> Mengambil foto dan mengirim laporan sampah via Portal Warga.</td>
                 <td><span class="badge badge-amber">Laporan Masuk</span></td>
               </tr>
               <tr>
-                <td class="item-col">2. Disposisi Armada</td>
-                <td>Menginstruksikan regu petugas kebersihan bergerak ke titik lokasi.</td>
-                <td><span class="badge badge-blue">Armada Menuju Lokasi</span></td>
+                <td class="item-col">2. Verifikasi (Admin)</td>
+                <td><strong>Admin:</strong> Memeriksa keaslian foto bukti dan kesesuaian lokasi kecamatan.</td>
+                <td><span class="badge badge-blue">Diverifikasi Admin</span></td>
               </tr>
               <tr>
-                <td class="item-col">3. Pengangkutan</td>
-                <td>Petugas lapangan mengangkut sampah dan mencatat timbangan riil.</td>
-                <td><span class="badge badge-purple">Proses Angkut</span></td>
+                <td class="item-col">3. Validasi Berat (Admin)</td>
+                <td><strong>Admin:</strong> Memperbarui berat timbangan riil dan mencatat hasil penanganan.</td>
+                <td><span class="badge badge-purple">Penyesuaian Bobot</span></td>
               </tr>
               <tr>
-                <td class="item-col">4. Validasi Akhir</td>
-                <td>Admin memperbarui berat aktual dan menutup laporan sebagai selesai.</td>
+                <td class="item-col">4. Selesai (Admin)</td>
+                <td><strong>Admin:</strong> Menutup laporan sebagai selesai dan tervalidasi penuh.</td>
                 <td><span class="badge badge-green">Terverifikasi Selesai</span></td>
               </tr>
             </tbody>
@@ -1484,7 +1473,7 @@
 
       <div class="page-content">
         <h1 class="chapter-head"><span class="num-circle">6.4</span> Manajemen Master Cakupan Wilayah Pelaporan</h1>
-        <p>Pemetaan zonasi wilayah operasional pengangkutan dikelola melalui tab <strong>"Wilayah"</strong>:</p>
+        <p>Pemetaan zonasi wilayah operasional dikelola Administrator melalui tab <strong>"Wilayah"</strong>:</p>
 
         <div class="browser-frame">
           <div class="browser-top">
@@ -1517,7 +1506,7 @@
               </tr>
               <tr>
                 <td class="item-col">Proteksi Hapus Wilayah</td>
-                <td>Wilayah yang sedang memiliki catatan laporan sampah aktif dilindungi agar tidak dapat dihapus secara tidak sengaja oleh petugas.</td>
+                <td>Wilayah yang sedang memiliki catatan laporan sampah aktif dilindungi agar tidak dapat dihapus secara tidak sengaja oleh administrator.</td>
               </tr>
             </tbody>
           </table>
@@ -1530,152 +1519,8 @@
       </div>
     </div>
 
-    <!-- ==================== HALAMAN 15: BAB 6.5 JADWAL ARMADA & PETUGAS (Hal 11) ==================== -->
+    <!-- ==================== HALAMAN 15: BAB 7 REPOSITORI & DEPLOYMENT (Hal 11) ==================== -->
     <div class="page" id="page-15">
-      <div class="page-header-banner">
-        <div class="header-branding">
-          <div class="header-logo-icon">🚛</div>
-          <div>
-            <div class="header-app-name">EcoResik System</div>
-            <div class="header-app-sub">Bab 6: Armada & Jadwal</div>
-          </div>
-        </div>
-        <div class="header-chapter-badge">
-          <span class="badge-dot"></span> Armada Petugas
-        </div>
-      </div>
-
-      <div class="page-content">
-        <h1 class="chapter-head"><span class="num-circle">6.5</span> Penjadwalan Armada & Penugasan Petugas</h1>
-        <p>
-          Administrator mengatur jadwal ritase truk sampah dan menugaskan personil petugas kebersihan per kecamatan untuk menjamin pengangkutan sampah berlangsung tertib dan terjadwal:
-        </p>
-
-        <div class="card-box emerald">
-          <h2 class="section-head" style="margin-top: 0;">Ketentuan Penugasan Armada:</h2>
-          <p style="margin: 0; font-size: 8.5pt;">
-            • Setiap kecamatan memiliki hari dan jam operasional pengangkutan tertentu.<br>
-            • Setiap regu truk sampah terdiri dari Koordinator Armada, Sopir Truk, dan Petugas Angkut Lapangan.<br>
-            • Petugas dapat dijadwalkan pada beberapa jadwal ritase wilayah yang berbeda secara bergilir.
-          </p>
-        </div>
-
-        <h2 class="section-head">Daftar Jadwal Ritase Pengangkutan Sampah Wilayah</h2>
-        <div class="table-container">
-          <table class="manual-table">
-            <thead>
-              <tr>
-                <th style="width: 25%;">Wilayah Tugas</th>
-                <th style="width: 25%;">Hari Operasional</th>
-                <th style="width: 20%;">Jam Ritase</th>
-                <th style="width: 30%;">Personil Bertugas</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="item-col">Kecamatan Menteng</td>
-                <td>Senin & Kamis</td>
-                <td>07:00 - 11:00</td>
-                <td>Bambang Pamungkas (Koordinator), Joko Widodo (Sopir)</td>
-              </tr>
-              <tr>
-                <td class="item-col">Kecamatan Kebayoran Baru</td>
-                <td>Selasa & Jumat</td>
-                <td>08:00 - 12:00</td>
-                <td>Siti Rahma (Pengawas), Bambang Pamungkas (Armada)</td>
-              </tr>
-              <tr>
-                <td class="item-col">Kecamatan Tebet</td>
-                <td>Rabu & Sabtu</td>
-                <td>13:00 - 17:00</td>
-                <td>Joko Widodo (Sopir), Agus Setiawan (Petugas Angkut)</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="page-footer-banner">
-        <div>EcoResik Waste Management &bull; Armada & Jadwal Pengangkutan</div>
-        <div class="footer-page-pill">Halaman 11</div>
-      </div>
-    </div>
-
-    <!-- ==================== HALAMAN 16: BAB 6.6 BANK SAMPAH & HARGA DAUR ULANG (Hal 12) ==================== -->
-    <div class="page" id="page-16">
-      <div class="page-header-banner">
-        <div class="header-branding">
-          <div class="header-logo-icon">💰</div>
-          <div>
-            <div class="header-app-name">EcoResik System</div>
-            <div class="header-app-sub">Bab 6: Bank Sampah</div>
-          </div>
-        </div>
-        <div class="header-chapter-badge">
-          <span class="badge-dot"></span> Bank Sampah
-        </div>
-      </div>
-
-      <div class="page-content">
-        <h1 class="chapter-head"><span class="num-circle">6.6</span> Manajemen Bank Sampah & Harga Daur Ulang</h1>
-        <p>
-          Untuk mendukung ekonomi sirkular, Administrator mendata mitra Bank Sampah resmi per kecamatan beserta jenis sampah yang diterima dan standar harga beli per kilogram:
-        </p>
-
-        <div class="table-container">
-          <table class="manual-table">
-            <thead>
-              <tr>
-                <th style="width: 30%;">Nama Bank Sampah</th>
-                <th style="width: 25%;">Kecamatan Lokasi</th>
-                <th style="width: 25%;">Jenis Diterima</th>
-                <th style="width: 20%;">Harga Beli / Kg</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="item-col">Bank Sampah Sejahtera</td>
-                <td>Kecamatan Menteng</td>
-                <td>Kertas & Karton</td>
-                <td><strong>Rp 3.500 / Kg</strong></td>
-              </tr>
-              <tr>
-                <td class="item-col">Bank Sampah Sejahtera</td>
-                <td>Kecamatan Menteng</td>
-                <td>Plastik Daur Ulang</td>
-                <td><strong>Rp 4.000 / Kg</strong></td>
-              </tr>
-              <tr>
-                <td class="item-col">Bank Sampah Bersih Hijau</td>
-                <td>Kecamatan Kebayoran Baru</td>
-                <td>Anorganik (Beling & Kaca)</td>
-                <td><strong>Rp 2.000 / Kg</strong></td>
-              </tr>
-              <tr>
-                <td class="item-col">Bank Sampah Bersih Hijau</td>
-                <td>Kecamatan Kebayoran Baru</td>
-                <td>Logam & Tembaga</td>
-                <td><strong>Rp 12.000 / Kg</strong></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="card-box emerald">
-          <p style="margin: 0; font-size: 8.5pt;">
-            <strong>Manfaat Ekonomi Kerakyatan:</strong> Adanya standarisasi harga beli daur ulang mendorong warga untuk memilah sampah sejak dari sumbernya (rumah tangga), meningkatkan penghasilan tambahan masyarakat, dan mengurangi beban volume sampah di Tempat Pemrosesan Akhir (TPA).
-          </p>
-        </div>
-      </div>
-
-      <div class="page-footer-banner">
-        <div>EcoResik Waste Management &bull; Bank Sampah & Daur Ulang</div>
-        <div class="footer-page-pill">Halaman 12</div>
-      </div>
-    </div>
-
-    <!-- ==================== HALAMAN 17: BAB 7 REPOSITORI & DEPLOYMENT (Hal 13) ==================== -->
-    <div class="page" id="page-17">
       <div class="page-header-banner">
         <div class="header-branding">
           <div class="header-logo-icon">🚀</div>
@@ -1709,12 +1554,12 @@
 
       <div class="page-footer-banner">
         <div>EcoResik Waste Management &bull; Repositori & Deployment Vercel</div>
-        <div class="footer-page-pill">Halaman 13</div>
+        <div class="footer-page-pill">Halaman 11</div>
       </div>
     </div>
 
-    <!-- ==================== HALAMAN 18: BAB 8 RIWAYAT & PENGESAHAN (Hal 14) ==================== -->
-    <div class="page" id="page-18">
+    <!-- ==================== HALAMAN 16: BAB 8 RIWAYAT & PENGESAHAN (Hal 12) ==================== -->
+    <div class="page" id="page-16">
       <div class="page-header-banner">
         <div class="header-branding">
           <div class="header-logo-icon">📋</div>
@@ -1763,8 +1608,8 @@
               </tr>
               <tr>
                 <td>28 September 2026</td>
-                <td>Penyempurnaan panduan operasional Warga & Admin, Desain Editorial Canva, serta Penjelasan Filosofi Warna Hijau.</td>
-                <td><strong>2.3</strong></td>
+                <td>Penyempurnaan panduan operasional Warga & Admin, Desain Editorial Canva, serta Penjelasan Filosofi Warna Hijau To-The-Point.</td>
+                <td><strong>2.4</strong></td>
                 <td>Dimas (Siswa)</td>
               </tr>
             </tbody>
@@ -1789,7 +1634,7 @@
 
       <div class="page-footer-banner">
         <div>EcoResik Waste Management &bull; Lembar Pengesahan Resmi</div>
-        <div class="footer-page-pill">Halaman 14</div>
+        <div class="footer-page-pill">Halaman 12</div>
       </div>
     </div>
 
