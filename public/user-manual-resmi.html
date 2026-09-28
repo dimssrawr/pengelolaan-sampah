@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buku Petunjuk Penggunaan Aplikasi (User Manual) - EcoResik</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Arial:wght@400;700&family=Helvetica:wght@400;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #525659;
+      color: #1a1a1a;
+      line-height: 1.4;
+      font-size: 10pt;
+    }
+
+    /* Print Setup */
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    @media print {
+      html, body {
+        background-color: #ffffff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .page-container {
+        padding: 0 !important;
+        margin: 0 !important;
+        gap: 0 !important;
+        display: block !important;
+      }
+      .page {
+        margin: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        max-height: 297mm !important;
+        padding: 18mm 20mm 20mm 20mm !important;
+        overflow: hidden !important;
+      }
+    }
+
+    /* Floating Print Control Bar */
+    .no-print-bar {
+      position: fixed;
+      top: 16px;
+      right: 20px;
+      z-index: 9999;
+      background: rgba(15, 23, 42, 0.95);
+      padding: 12px 20px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+    }
+    .btn-save-pdf {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      font-size: 13px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-save-pdf:hover {
+      background: linear-gradient(135deg, #0369a1, #075985);
+      transform: translateY(-1px);
+    }
+    .bar-info {
+      color: #e2e8f0;
+      font-size: 12px;
+    }
+
+    /* Document Sheet (A4 Dimensions: 210mm x 297mm) */
+    .page-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 25px 0;
+      gap: 20px;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      background: #ffffff;
+      padding: 18mm 20mm 20mm 20mm;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Chapter Badge (Exact Kemendikbud Style) */
+    .top-badge-container {
+      position: absolute;
+      top: 14mm;
+      right: 20mm;
+      display: flex;
+      align-items: stretch;
+      height: 22px;
+    }
+    .badge-label {
+      background: #ffffff;
+      color: #1e3a8a;
+      font-size: 9.5pt;
+      font-weight: normal;
+      padding: 2px 8px;
+      display: flex;
+      align-items: center;
+    }
+    .badge-number {
+      background: #3b82f6;
+      color: #ffffff;
+      font-size: 9.5pt;
+      font-weight: bold;
+      padding: 2px 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
+    }
+
+    /* Page Content Area */
+    .page-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      margin-top: 4mm;
+    }
+
+    /* Page Footer (Kemendikbud Format) */
+    .page-footer {
+      position: absolute;
+      bottom: 10mm;
+      left: 20mm;
+      right: 20mm;
+      border-top: 1.5px solid #000000;
+      padding-top: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-logo {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+    .footer-text {
+      font-size: 8pt;
+      color: #111827;
+      line-height: 1.2;
+    }
+    .footer-text strong {
+      font-size: 8pt;
+      color: #000000;
+    }
+    .footer-right {
+      font-size: 8.5pt;
+      font-weight: bold;
+      color: #000000;
+      white-space: nowrap;
+    }
+
+    /* Typography & Hierarchy */
+    h1.chapter-title {
+      font-size: 14pt;
+      font-weight: bold;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+    h2.sub-title {
+      font-size: 11pt;
+      font-weight: bold;
+      color: #111827;
+      margin-top: 8px;
+      margin-bottom: 6px;
+    }
+    p {
+      margin-bottom: 6px;
+      text-align: justify;
+      color: #1f2937;
+    }
+    ol, ul {
+      margin-left: 18px;
+      margin-bottom: 8px;
+    }
+    li {
+      margin-bottom: 3px;
+    }
+
+    /* Screenshots & Captions */
+    .img-box {
+      text-align: center;
+      margin: 6px 0 4px 0;
+    }
+    .img-box img {
+      max-width: 100%;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .img-caption {
+      font-size: 8.5pt;
+      color: #111827;
+      text-align: center;
+      margin-top: 3px;
+      margin-bottom: 8px;
+    }
+
+    /* Tables (Exact Kemendikbud Style: Item & Keterangan) */
+    .table-container {
+      margin-top: 4px;
+      margin-bottom: 8px;
+    }
+    table.manual-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9pt;
+    }
+    table.manual-table th {
+      background-color: #ffffff;
+      border: 1px solid #000000;
+      padding: 5px 8px;
+      font-weight: bold;
+      text-align: center;
+      color: #000000;
+    }
+    table.manual-table td {
+      border: 1px solid #000000;
+      padding: 4px 7px;
+      vertical-align: top;
+      color: #111827;
+    }
+    table.manual-table td.item-col {
+      font-weight: 500;
+    }
+
+    /* In-line Button Badge in Instructions */
+    .inline-btn {
+      display: inline-block;
+      background: #0284c7;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 8pt;
+      padding: 2px 7px;
+      border-radius: 3px;
+      margin: 0 2px;
+    }
+    .inline-btn-green {
+      background: #10b981;
+    }
+
+    /* Cover Page Styles */
+    .cover-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      height: 250mm;
+      padding: 25px 0 10px 0;
+      text-align: center;
+      margin: 0 auto;
+    }
+    .cover-main-title {
+      font-size: 22pt;
+      font-weight: bold;
+      line-height: 1.3;
+      color: #000000;
+      margin-top: 15px;
+    }
+    .cover-app-title {
+      font-size: 13pt;
+      font-weight: bold;
+      color: #000000;
+      margin-top: 35px;
+      line-height: 1.4;
+    }
+    .cover-logo-center {
+      width: 150px;
+      height: 150px;
+      margin: 25px 0;
+    }
+    .cover-agency {
+      font-size: 10.5pt;
+      font-weight: bold;
+      color: #000000;
+      line-height: 1.4;
+    }
+    .cover-version {
+      font-size: 10.5pt;
+      font-weight: bold;
+      color: #000000;
+      margin-top: 10px;
+    }
+
+    /* TOC Line Item with Dots */
+    .toc-item {
+      display: flex;
+      align-items: baseline;
+      margin-bottom: 5px;
+      font-size: 9.5pt;
+    }
+    .toc-item.bold {
+      font-weight: bold;
+      margin-top: 5px;
+    }
+    .toc-label {
+      flex-shrink: 0;
+    }
+    .toc-dots {
+      flex: 1;
+      border-bottom: 1px dotted #000000;
+      margin: 0 6px;
+      height: 1em;
+    }
+    .toc-page {
+      flex-shrink: 0;
+      font-weight: bold;
+      min-width: 20px;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Print Controls (Hidden on Print) -->
+  <div class="no-print no-print-bar">
+    <div class="bar-info">
+      <strong>Dokumen User Manual Resmi (Standar Kemendikbud)</strong> — 18 Halaman Lengkap
+    </div>
+    <button class="btn-save-pdf" onclick="window.print()">
+      🖨️ Cetak / Simpan ke PDF Sekarang
+    </button>
+  </div>
+
+  <div class="page-container">
+
+    <!-- ==================== HALAMAN 1: COVER ==================== -->
+    <div class="page" id="page-cover">
+      <div class="cover-body">
+        <div>
+          <div class="cover-main-title">
+            Buku Petunjuk Penggunaan<br>
+            Aplikasi<br>
+            (User Manual)
+          </div>
+          <div class="cover-app-title">
+            Sistem Informasi Pengelolaan Sampah Terpadu<br>
+            (EcoResik)<br>
+            Role: Administrator & Masyarakat
+          </div>
+        </div>
+
+        <div>
+          <img src="images/logo_kemendikbud.svg" class="cover-logo-center" alt="Logo Kemendikbud">
+        </div>
+
+        <div>
+          <div class="cover-agency">
+            KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN<br>
+            Direktorat Jenderal Pendidikan Vokasi / Pendidikan Menengah Kejuruan<br>
+            Dan Dinas Lingkungan Hidup
+          </div>
+          <div class="cover-version">Versi 2.1</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== HALAMAN 2: TENTANG PANDUAN INI ==================== -->
+    <div class="page" id="page-ii">
+      <div class="page-body">
+        <h1 class="chapter-title" style="margin-top: 15mm; margin-bottom: 20px;">Tentang Panduan Ini</h1>
+        <p style="font-size: 10.5pt; line-height: 1.6;">
+          Petunjuk penggunaan aplikasi ini dibuat agar <em>user</em> (baik Warga Masyarakat umum maupun Petugas/Administrator Sistem) dapat mengoperasikan aplikasi Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik) sesuai dengan prosedur yang telah ditetapkan sehingga maksud dan tujuan dari sistem ini tercapai.
+        </p>
+        <p style="font-size: 10.5pt; line-height: 1.6; margin-top: 10px;">
+          Aplikasi EcoResik dirancang untuk mewujudkan pencatatan, pelaporan, dan pengelolaan data timbulan sampah berbasis web secara akurat, transparan, dan terintegrasi dengan basis data relasional PostgreSQL. Melalui buku panduan ini, pengguna dibimbing mulai dari proses registrasi akun, autentikasi multi-role, pelaporan sampah berfoto, verifikasi oleh administrator, manajemen master data, hingga pengujian relasi basis data <em>One-to-One</em>, <em>One-to-Many</em>, <em>Many-to-Many</em>, serta transaksi atomik (ACID).
+        </p>
+      </div>
+
+      <div class="page-footer" style="border-top: none; justify-content: center;">
+        <div style="font-size: 9.5pt; font-weight: bold;">~ ii ~</div>
+      </div>
+    </div>
+
+    <!-- ==================== HALAMAN 3: DAFTAR ISI ==================== -->
+    <div class="page" id="page-iii">
+      <div class="page-body">
+        <h1 class="chapter-title" style="margin-top: 12mm; margin-bottom: 16px;">Daftar Isi</h1>
+        
+        <div class="toc-item bold">
+          <span class="toc-label">TENTANG PANDUAN INI</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">II</span>
+        </div>
+        <div class="toc-item bold">
+          <span class="toc-label">DAFTAR ISI</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">III</span>
+        </div>
+
+        <div class="toc-item bold" style="margin-top: 10px;">
+          <span class="toc-label">1 PENDAHULUAN</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">1</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">1.1 TUJUAN PEMBUATAN DOKUMEN</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">1</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">1.2 DESKRIPSI UMUM SISTEM</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">1</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">1.3 DESKRIPSI DOKUMEN</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">1</span>
+        </div>
+
+        <div class="toc-item bold" style="margin-top: 10px;">
+          <span class="toc-label">2 KEBUTUHAN SUMBER DAYA</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">2</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">2.1 PERANGKAT LUNAK PENDUKUNG (SOFTWARE REQUIREMENT)</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">2</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">2.2 PERANGKAT KERAS PENDUKUNG (HARDWARE REQUIREMENT)</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">2</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">2.3 JARINGAN INTERNET (INTERNET NETWORK)</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">2</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">2.4 SUMBER DAYA MANUSIA</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">2</span>
+        </div>
+
+        <div class="toc-item bold" style="margin-top: 10px;">
+          <span class="toc-label">3 MEMULAI APLIKASI</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">3</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">3.1 AKSES WEBSITE DAN BERANDA</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">3</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">3.2 REGISTRASI AKUN WARGA BARU</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">4</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">3.3 LOGIN MULTI-ROLE (WARGA & ADMIN)</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">5</span>
+        </div>
+
+        <div class="toc-item bold" style="margin-top: 10px;">
+          <span class="toc-label">4 MENU PORTAL LAPORAN WARGA</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">6</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">4.1 DASHBOARD WARGA & FORMULIR PELAPORAN</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">6</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">4.2 FORMULIR PELAPORAN SAMPAH (RELASI 1:1)</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">7</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">4.3 MANAJEMEN RIWAYAT LAPORAN (CASCADE DELETE)</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">7</span>
+        </div>
+
+        <div class="toc-item bold" style="margin-top: 10px;">
+          <span class="toc-label">5 MENU PORTAL ADMINISTRATOR</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">8</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">5.1 MONITORING SEMUA LAPORAN SAMPAH MASUK</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">8</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">5.2 MANAJEMEN MASTER JENIS SAMPAH</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">9</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">5.3 MANAJEMEN MASTER WILAYAH</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">10</span>
+        </div>
+
+        <div class="toc-item bold" style="margin-top: 10px;">
+          <span class="toc-label">6 MENU INSPEKSI RELASI DATABASE & TRANSAKSI</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">11</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">6.1 DIAGRAM ERD LENGKAP 10 MODEL BASIS DATA</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">11</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">6.2 RELASI ONE-TO-ONE (1:1) & 6.3 RELASI ONE-TO-MANY (1:N)</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">12</span>
+        </div>
+        <div class="toc-item" style="margin-left: 15px;">
+          <span class="toc-label">6.4 RELASI MANY-TO-MANY (N:N) & 6.5 TRANSAKSI ACID</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">13</span>
+        </div>
+
+        <div class="toc-item bold" style="margin-top: 10px;">
+          <span class="toc-label">7 INFORMASI REPOSITORI & DEPLOYMENT</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">14</span>
+        </div>
+        <div class="toc-item bold" style="margin-top: 10px;">
+          <span class="toc-label">INFORMASI PERUBAHAN DOKUMEN</span>
+          <span class="toc-dots"></span>
+          <span class="toc-page">15</span>
+        </div>
+      </div>
+
+      <div class="page-footer" style="border-top: none; justify-content: center;">
+        <div style="font-size: 9.5pt; font-weight: bold;">~ iii ~</div>
+      </div>
+    </div>
+
+    <!-- ==================== HALAMAN 4: BAB 1 PENDAHULUAN (Hal | 1) ==================== -->
+    <div class="page" id="page-1">
+      <div class="top-badge-container">
+        <div class="badge-label">Pendahuluan</div>
+        <div class="badge-number">1</div>
+      </div>
+
+      <div class="page-body">
+        <h1 class="chapter-title">1 Pendahuluan</h1>
+
+        <h2 class="sub-title">1.1 Tujuan Pembuatan Dokumen</h2>
+        <p>
+          Dokumen petunjuk penggunaan aplikasi (<em>user manual</em>) ini dibuat dengan tujuan untuk memberikan gambaran dan panduan menyeluruh bagi <em>user</em> dalam menjalankan Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik) secara maksimal kepada <em>user</em>. Dengan dapat dioperasikannya aplikasi ini, diharapkan koordinasi pengangkutan sampah, pelaporan dari masyarakat, pemantauan wilayah, dan validasi data oleh petugas dinas kebersihan dapat berlangsung lebih cepat, transparan, dan tepat sasaran.
+        </p>
+
+        <h2 class="sub-title">1.2 Deskripsi Umum Sistem</h2>
+        <p>
+          Aplikasi EcoResik merupakan sistem informasi tata kelola sampah berbasis web modern yang dibangun dengan Next.js, TypeScript, Prisma ORM, dan basis data PostgreSQL. Sistem ini mengintegrasikan seluruh aktor pengelola sampah, mulai dari warga masyarakat yang melaporkan temuan sampah, petugas kebersihan lapangan, bank sampah, hingga administrator dinas. Sistem didesain mematuhi integritas referensial basis data relasional (UUID Primary Key, Unique NIK/Email, Foreign Key Restrict, dan Cascade Delete) serta menjamin keandalan transaksi atomik (ACID).
+        </p>
+
+        <h2 class="sub-title">1.3 Deskripsi Dokumen</h2>
+        <p>Dokumen ini berisikan informasi sebagai berikut:</p>
+        <ol>
+          <li>
+            <strong>Pendahuluan</strong><br>
+            Berisi informasi umum yang meliputi tujuan pembuatan dokumen, deskripsi umum sistem, dan deskripsi dokumen.
+          </li>
+          <li>
+            <strong>Kebutuhan Sumber Daya</strong><br>
+            Berisikan informasi perangkat yang dibutuhkan untuk mengoperasikan Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik), meliputi perangkat lunak dan perangkat keras.
+          </li>
+          <li>
+            <strong>Memulai Aplikasi</strong><br>
+            Berisikan informasi yang menjelaskan langkah-langkah akses web, registrasi warga, dan login multi-role.
+          </li>
+          <li>
+            <strong>Menu Portal Laporan Warga</strong><br>
+            Berisikan tata cara input data pelaporan sampah berfoto (1:1) dan manajemen data laporan bagi masyarakat.
+          </li>
+          <li>
+            <strong>Menu Portal Administrator</strong><br>
+            Berisikan panduan monitoring seluruh wilayah, verifikasi laporan, dan pengelolaan master jenis & wilayah.
+          </li>
+          <li>
+            <strong>Menu Inspeksi Relasi Database & Transaksi</strong><br>
+            Berisikan dokumentasi skema ERD 10 model (1:1, 1:N, N:N) dan pengujian transaksi ACID.
+          </li>
+        </ol>
+      </div>
+
+      <div class="page-footer">
+        <div class="footer-left">
+          <img src="images/logo_kemendikbud.svg" class="footer-logo" alt="Logo">
+          <div class="footer-text">
+            <strong>Petunjuk Penggunaan Aplikasi</strong><br>
+            Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik)<br>
+            Versi 2.1
+          </div>
+        </div>
+        <div class="footer-right">Hal | 1</div>
+      </div>
+    </div>
+
+    <!-- ==================== HALAMAN 5: BAB 2 KEBUTUHAN SUMBER DAYA (Hal | 2) ==================== -->
+    <div class="page" id="page-2">
+      <div class="top-badge-container">
+        <div class="badge-label">Kebutuhan Sumber Daya</div>
+        <div class="badge-number">2</div>
+      </div>
+
+      <div class="page-body">
+        <h1 class="chapter-title">2 Kebutuhan Sumber Daya</h1>
+
+        <h2 class="sub-title">2.1 Perangkat Lunak Pendukung (Software Requirement)</h2>
+        <p>Kebutuhan perangkat lunak (<em>software</em>) yang digunakan untuk dapat mengakses Aplikasi EcoResik adalah:</p>
+        <ol>
+          <li>
+            <strong>Sistem Operasi (Operating System (OS))</strong><br>
+            • Komputer / Laptop: Windows 7, Windows 8, Windows 10, Windows 11, macOS, atau Linux.<br>
+            • Smartphone: Android OS v8.0+ atau iOS 13+.
+          </li>
+          <li>
+            <strong>Komponen Peramban Web (Web Browser)</strong><br>
+            • Google Chrome (direkomendasikan versi terbaru).<br>
+            • Microsoft Edge, Mozilla Firefox, Opera, atau Safari.
+          </li>
+        </ol>
+
+        <h2 class="sub-title">2.2 Perangkat Keras Pendukung (Hardware Requirement)</h2>
+        <p>Kebutuhan perangkat keras (<em>hardware</em>) minimum yang digunakan untuk dapat mengakses Aplikasi EcoResik adalah:</p>
+        <ol>
+          <li><strong>Prosesor</strong> : Dual Core 1.8 GHz atau lebih tinggi</li>
+          <li><strong>Kapasitas RAM</strong> : 2 GB (disarankan 4 GB untuk performa optimal)</li>
+          <li><strong>Ruang Penyimpanan (Storage)</strong> : Tersisa minimum 500 MB pada perangkat pengguna</li>
+          <li><strong>Monitor / Layar</strong> : Resolusi minimum 1280 x 720 piksel (responsif pada layar ponsel)</li>
+        </ol>
+
+        <h2 class="sub-title">2.3 Jaringan Internet (Internet Network)</h2>
+        <p>Diperlukan jaringan internet untuk mengakses aplikasi ini secara daring, dan perlu diperhatikan kebutuhan akses jaringan internet sebagai berikut:</p>
+        <ol>
+          <li><strong>Bandwidth Minimum</strong> : 256 Kbps (disarankan &gt; 1 Mbps untuk pengunggahan foto bukti)</li>
+          <li><strong>Akses Internet</strong> : Koneksi WiFi, Hotspot Seluler, LAN, atau Kuota Data Seluler 3G/4G/5G</li>
+          <li>Akan lebih baik jika latensi jaringan stabil demi kelancaran pengunggahan data secara *real-time*.</li>
+        </ol>
+
+        <h2 class="sub-title">2.4 Sumber Daya Manusia</h2>
+        <p>Sumber daya manusia yang direkomendasikan untuk mengoperasikan aplikasi ini adalah:</p>
+        <ol>
+          <li>Terbiasa bekerja dengan menggunakan perangkat komputer atau telepon genggam pintar (smartphone),</li>
+          <li>Terbiasa menggunakan aplikasi berbasis Website dan formulir online,</li>
+          <li>Mampu mengambil dokumentasi foto lapangan dengan jelas menggunakan kamera HP.</li>
+        </ol>
+      </div>
+
+      <div class="page-footer">
+        <div class="footer-left">
+          <img src="images/logo_kemendikbud.svg" class="footer-logo" alt="Logo">
+          <div class="footer-text">
+            <strong>Petunjuk Penggunaan Aplikasi</strong><br>
+            Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik)<br>
+            Versi 2.1
+          </div>
+        </div>
+        <div class="footer-right">Hal | 2</div>
+      </div>
+    </div>
+
+    <!-- ==================== HALAMAN 6: BAB 3 MEMULAI APLIKASI (3.1 Akses Web) (Hal | 3) ==================== -->
+    <div class="page" id="page-3">
+      <div class="top-badge-container">
+        <div class="badge-label">Memulai Aplikasi</div>
+        <div class="badge-number">3</div>
+      </div>
+
+      <div class="page-body">
+        <h1 class="chapter-title">3 Memulai Aplikasi</h1>
+
+        <h2 class="sub-title">3.1 Akses Website dan Beranda</h2>
+        <p>Berikut adalah prosedur untuk memulai akses terhadap aplikasi EcoResik:</p>
+        <ol>
+          <li>Buka peramban web (Google Chrome, Microsoft Edge, Mozilla Firefox, dll).</li>
+          <li>Ketikkan alamat URL resmi aplikasi pada kolom pencarian browser:
+            <br><strong>Link Online (Vercel Cloud):</strong> <span style="color: #0284c7; text-decoration: underline;">https://pengelolaan-sampah-vert.vercel.app</span>
+            <br><strong>Link Server Lokal:</strong> <span style="color: #0284c7; text-decoration: underline;">http://localhost:3000</span>
+          </li>
+          <li>Tekan <strong>Enter</strong> pada keyboard, maka akan tampil Halaman Beranda (Landing Page) seperti berikut:</li>
+        </ol>
+
+        <div class="img-box">
+          <img src="images/web_home.png" style="max-height: 115mm;" alt="Gambar 1. Halaman Beranda EcoResik">
+          <div class="img-caption">Gambar 1. Halaman Beranda & Statistik Publik EcoResik</div>
+        </div>
+
+        <p>
+          Pada halaman beranda, pengguna disajikan ringkasan statistik timbulan sampah secara langsung (Total Berat Kg, Total Laporan Masuk, dan Cakupan Wilayah), katalog foto sampah masyarakat terkini, fitur filter wilayah, tombol navigasi <span class="inline-btn">Cek Relasi (1:1, 1:N, N:N)</span>, dan tombol <span class="inline-btn" style="background:#111827;">Portal Masuk</span>.
+        </p>
+      </div>
+
+      <div class="page-footer">
+        <div class="footer-left">
+          <img src="images/logo_kemendikbud.svg" class="footer-logo" alt="Logo">
+          <div class="footer-text">
+            <strong>Petunjuk Penggunaan Aplikasi</strong><br>
+            Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik)<br>
+            Versi 2.1
+          </div>
+        </div>
+        <div class="footer-right">Hal | 3</div>
+      </div>
+    </div>
+
+    <!-- ==================== HALAMAN 7: BAB 3.2 REGISTRASI WARGA BARU (Hal | 4) ==================== -->
+    <div class="page" id="page-4">
+      <div class="top-badge-container">
+        <div class="badge-label">Memulai Aplikasi</div>
+        <div class="badge-number">4</div>
+      </div>
+
+      <div class="page-body">
+        <h2 class="sub-title">3.2 Registrasi Akun Warga Baru</h2>
+        <p>
+          Masyarakat yang belum memiliki akun terdaftar dapat melakukan pendaftaran secara mandiri dengan langkah berikut:
+        </p>
+        <ol>
+          <li>Pada halaman login atau menu beranda, klik tautan <strong>"Daftar di sini"</strong> atau akses URL <code>/register</code>.</li>
+          <li>Layar akan menampilkan formulir pendaftaran warga baru seperti pada Gambar 2:</li>
+        </ol>
+
+        <div class="img-box">
+          <img src="images/web_register.png" style="max-height: 90mm;" alt="Gambar 2. Halaman Registrasi Warga Baru">
+          <div class="img-caption">Gambar 2. Halaman Formulir Registrasi Warga Baru</div>
+        </div>
+
+        <p>Langkah pengoperasian pengisian formulir pendaftaran adalah sebagai berikut:</p>
+        
+        <div class="table-container">
+          <table class="manual-table">
+            <thead>
+              <tr>
+                <th style="width: 32%;">Item</th>
+                <th style="width: 68%;">Keterangan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="item-col">Nama Lengkap</td>
+                <td>Masukkan nama lengkap warga pelapor sesuai dengan identitas resmi (KTP).</td>
+              </tr>
+              <tr>
+                <td class="item-col">Nomor NIK (16 Digit)</td>
+                <td>Masukkan 16 digit Nomor Induk Kependudukan. Sistem menerapkan batasan <em>Unique NIK</em>.</td>
+              </tr>
+              <tr>
+                <td class="item-col">Alamat Email</td>
+                <td>Masukkan alamat email aktif yang akan digunakan sebagai identitas login utama.</td>
+              </tr>
+              <tr>
+                <td class="item-col">Nomor WhatsApp / HP</td>
+                <td>Masukkan nomor kontak aktif warga guna keperluan koordinasi pengangkutan.</td>
+              </tr>
+              <tr>
+                <td class="item-col">Kata Sandi (Password)</td>
+                <td>Masukkan kata sandi rahasia untuk keamanan akun (dienkripsi aman dengan algoritma kriptografi).</td>
+              </tr>
+              <tr>
+                <td class="item-col">Tombol Daftar Akun</td>
+                <td>Klik tombol hijau <span class="inline-btn inline-btn-green">Daftar Akun</span> untuk menyimpan data warga baru.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="page-footer">
+        <div class="footer-left">
+          <img src="images/logo_kemendikbud.svg" class="footer-logo" alt="Logo">
+          <div class="footer-text">
+            <strong>Petunjuk Penggunaan Aplikasi</strong><br>
+            Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik)<br>
+            Versi 2.1
+          </div>
+        </div>
+        <div class="footer-right">Hal | 4</div>
+      </div>
+    </div>
+
+    <!-- ==================== HALAMAN 8: BAB 3.3 LOGIN MULTI-ROLE (Hal | 5) ==================== -->
+    <div class="page" id="page-5">
+      <div class="top-badge-container">
+        <div class="badge-label">Memulai Aplikasi</div>
+        <div class="badge-number">5</div>
+      </div>
+
+      <div class="page-body">
+        <h2 class="sub-title">3.3 Login Multi-Role (Warga & Admin)</h2>
+        <p>Prosedur masuk ke sistem EcoResik menggunakan autentikasi multi-role terpadu:</p>
+        <ol>
+          <li>Klik tombol <span class="inline-btn" style="background:#111827;">Portal Masuk</span> pada navigasi atas atau buka URL <code>/login</code>.</li>
+          <li>Maka akan tampil formulir autentikasi sistem seperti pada Gambar 3:</li>
+        </ol>
+
+        <div class="img-box">
+          <img src="images/web_login.png" style="max-height: 90mm;" alt="Gambar 3. Halaman Login Multi-Role">
+          <div class="img-caption">Gambar 3. Halaman Login Multi-Role EcoResik</div>
+        </div>
+
+        <p>Langkah pengoperasian pengisian formulir login:</p>
+        
+        <div class="table-container">
+          <table class="manual-table">
+            <thead>
+              <tr>
+                <th style="width: 32%;">Item</th>
+                <th style="width: 68%;">Keterangan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="item-col">Alamat Email</td>
+                <td>Masukkan email terdaftar akun Warga (<code>budi@gmail.com</code>) atau Administrator (<code>admin@ecoresik.com</code>).</td>
+              </tr>
+              <tr>
+                <td class="item-col">Kata Sandi (Password)</td>
+                <td>Masukkan kata sandi yang sesuai (<code>warga123</code> atau <code>admin123</code>).</td>
+              </tr>
+              <tr>
+                <td class="item-col">Tombol Masuk Ke Portal</td>
+                <td>Klik tombol hijau <span class="inline-btn inline-btn-green">Masuk Ke Portal</span> untuk memvalidasi hak akses.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          <strong>Sistem Redireksi Cerdas Otomatis:</strong><br>
+          • Jika <em>Role</em> = <strong>USER (Masyarakat)</strong>, sistem secara otomatis mengarahkan ke <strong>Portal Warga (<code>/user</code>)</strong>.<br>
+          • Jika <em>Role</em> = <strong>ADMIN (Pengelola)</strong>, sistem secara otomatis mengarahkan ke <strong>Portal Admin (<code>/admin</code>)</strong>.
+        </p>
+      </div>
+
+      <div class="page-footer">
+        <div class="footer-left">
+          <img src="images/logo_kemendikbud.svg" class="footer-logo" alt="Logo">
+          <div class="footer-text">
+            <strong>Petunjuk Penggunaan Aplikasi</strong><br>
+            Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik)<br>
+            Versi 2.1
+          </div>
+        </div>
+        <div class="footer-right">Hal | 5</div>
+      </div>
+    </div>
+
+    <!-- ==================== HALAMAN 9: BAB 4 PORTAL WARGA (Hal | 6) ==================== -->
+    <div class="page" id="page-6">
+      <div class="top-badge-container">
+        <div class="badge-label">Portal Laporan Warga</div>
+        <div class="badge-number">6</div>
+      </div>
+
+      <div class="page-body">
+        <h1 class="chapter-title">4 Menu Portal Laporan Warga</h1>
+
+        <h2 class="sub-title">4.1 Dashboard Warga & Formulir Pelaporan</h2>
+        <p>
+          Halaman Portal Laporan Warga dikhususkan bagi masyarakat untuk berkontribusi melaporkan timbulan sampah liar yang ditemukan di lingkungannya. Pada halaman ini terdapat formulir pengiriman laporan baru dan daftar tabel laporan pribadi warga.
+        </p>
+
+        <div class="img-box">
+          <img src="images/web_user.png" style="max-height: 115mm;" alt="Gambar 4. Halaman Dashboard Warga">
+          <div class="img-caption">Gambar 4. Halaman Dashboard Warga & Formulir Pelaporan</div>
+        </div>
+
+        <p>
+          Pengguna dapat melihat status autentikasi aktif pada sudut kiri atas: <em>"Halo, Budi Santoso (Masyarakat)"</em>. Formulir di sebelah kiri digunakan untuk menyusun laporan baru secara terstruktur dengan bukti foto, sedangkan tabel di sebelah kanan menampilkan rekapitulasi laporan yang dikirimkan oleh akun yang bersangkutan.
+        </p>
+      </div>
+
+      <div class="page-footer">
+        <div class="footer-left">
+          <img src="images/logo_kemendikbud.svg" class="footer-logo" alt="Logo">
+          <div class="footer-text">
+            <strong>Petunjuk Penggunaan Aplikasi</strong><br>
+            Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik)<br>
+            Versi 2.1
+          </div>
+        </div>
+        <div class="footer-right">Hal | 6</div>
+      </div>
+    </div>
+
+    <!-- ==================== HALAMAN 10: BAB 4.2 FORM PELAPORAN & CASCADE (Hal | 7) ==================== -->
+    <div class="page" id="page-7">
+      <div class="top-badge-container">
+        <div class="badge-label">Portal Laporan Warga</div>
+        <div class="badge-number">7</div>
+      </div>
+
+      <div class="page-body">
+        <h2 class="sub-title">4.2 Formulir Pelaporan Sampah (Relasi 1:1)</h2>
+        <p>Tata cara pengisian formulir pelaporan sampah oleh warga dijelaskan pada tabel berikut:</p>
+
+        <div class="table-container">
+          <table class="manual-table">
+            <thead>
+              <tr>
+                <th style="width: 32%;">Item</th>
+                <th style="width: 68%;">Keterangan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="item-col">Berat Sampah (KG)</td>
+                <td>Masukkan perkiraan bobot sampah dalam satuan kilogram (angka desimal > 0 kg, misal: 4.5 atau 12.3). Validasi sistem menolak input 0 atau negatif.</td>
+              </tr>
+              <tr>
+                <td class="item-col">Jenis Sampah (FK)</td>
+                <td>Pilih kategori sampah dari dropdown list: Organik, Anorganik, B3, Kertas & Karton, atau Plastik Daur Ulang. Terhubung sebagai Foreign Key.</td>
+              </tr>
+              <tr>
+                <td class="item-col">Wilayah (FK)</td>
+                <td>Pilih zonasi lokasi penemuan sampah dari dropdown list (misal: Kecamatan Kebayoran Baru, Menteng, Tebet). Terhubung sebagai Foreign Key.</td>
+              </tr>
+              <tr>
+                <td class="item-col">Foto Bukti (1-TO-1)</td>
+                <td>Klik tombol <span class="inline-btn" style="background:#e2e8f0; color:#0f172a;">Choose File</span> untuk memilih file foto sampah (JPG/PNG). Foto ini terikat secara ketat 1-to-1 dengan catatan laporan.</td>
+              </tr>
+              <tr>
+                <td class="item-col">Tombol Kirim Laporan</td>
+                <td>Klik tombol hijau <span class="inline-btn inline-btn-green">Kirim Laporan</span> untuk memproses penyimpanan transaksi ke basis data.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="sub-title">4.3 Manajemen Riwayat Laporan (Fitur Cascade Delete)</h2>
+        <p>
+          Warga dapat mengelola daftar laporannya melalui tombol aksi pada tabel <strong>"Daftar Laporan Sampah Saya"</strong>:
+        </p>
+        <ul>
+          <li><strong>Sunting Laporan (Ikon Pensil Hijau):</strong> Mengisi kembali form sebelah kiri dengan data yang ada untuk melakukan pembaharuan data berat atau wilayah.</li>
+          <li><strong>Hapus Laporan (Ikon Tempat Sampah Merah):</strong> Menghapus laporan dari sistem. Berkat batasan basis data <code>ON DELETE CASCADE</code>, saat laporan dihapus, entri foto bukti pada tabel <code>FotoSampah</code> dan file fisik pada server otomatis ikut terhapus bersih tanpa menyisakan sampah data (<em>orphan records</em>).</li>
+        </ul>
+      </div>
+
+      <div class="page-footer">
+        <div class="footer-left">
+          <img src="images/logo_kemendikbud.svg" class="footer-logo" alt="Logo">
+          <div class="footer-text">
+            <strong>Petunjuk Penggunaan Aplikasi</strong><br>
+            Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik)<br>
+            Versi 2.1
+          </div>
+        </div>
+        <div class="footer-right">Hal | 7</div>
+      </div>
+    </div>
+
+    <!-- ==================== HALAMAN 11: BAB 5 PORTAL ADMIN (5.1 Monitoring) (Hal | 8) ==================== -->
+    <div class="page" id="page-8">
+      <div class="top-badge-container">
+        <div class="badge-label">Portal Administrator</div>
+        <div class="badge-number">8</div>
+      </div>
+
+      <div class="page-body">
+        <h1 class="chapter-title">5 Menu Portal Administrator</h1>
+
+        <h2 class="sub-title">5.1 Monitoring Semua Laporan Sampah Masuk</h2>
+        <p>
+          Akun berwenang Administrator Dinas Lingkungan Hidup memiliki hak akses menyeluruh untuk memantau seluruh laporan timbulan sampah dari seluruh kecamatan di wilayah tugasnya.
+        </p>
+
+        <div class="img-box">
+          <img src="images/web_admin_laporan.png" style="max-height: 105mm;" alt="Gambar 5. Halaman Monitoring Admin">
+          <div class="img-caption">Gambar 5. Halaman Monitoring Semua Laporan Sampah Masuk</div>
+        </div>
+
+        <p>Rincian kolom informasi pada tabel monitoring laporan administrator:</p>
+        
+        <div class="table-container">
+          <table class="manual-table">
+            <thead>
+              <tr>
+                <th style="width: 25%;">Kolom</th>
+                <th style="width: 75%;">Deskripsi Fungsi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="item-col">Foto Bukti</td>
+                <td>Menampilkan thumbnail foto bukti fisik penemuan sampah yang diunggah warga secara 1-to-1.</td>
+              </tr>
+              <tr>
+                <td class="item-col">Kategori & UUID</td>
+                <td>Nama jenis sampah serta nomor identitas unik global (UUID format) sebagai Primary Key laporan.</td>
+              </tr>
+              <tr>
+                <td class="item-col">Berat (Kg)</td>
+                <td>Bobot timbulan sampah yang dilaporkan untuk kalkulasi kapasitas truk pengangkut.</td>
+              </tr>
+              <tr>
+                <td class="item-col">Lokasi & Pelapor</td>
+                <td>Kecamatan lokasi sampah dan nama warga yang mengirimkan laporan.</td>
+              </tr>
+              <tr>
+                <td class="item-col">Aksi Admin</td>
+                <td>Tombol verifikasi, penyesuaian bobot sampah hasil timbangan riil, serta penghapusan laporan.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="page-footer">
+        <div class="footer-left">
+          <img src="images/logo_kemendikbud.svg" class="footer-logo" alt="Logo">
+          <div class="footer-text">
+            <strong>Petunjuk Penggunaan Aplikasi</strong><br>
+            Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik)<br>
+            Versi 2.1
+          </div>
+        </div>
+        <div class="footer-right">Hal | 8</div>
+      </div>
+    </div>
+
+    <!-- ==================== HALAMAN 12: BAB 5.2 MASTER JENIS SAMPAH (Hal | 9) ==================== -->
+    <div class="page" id="page-9">
+      <div class="top-badge-container">
+        <div class="badge-label">Portal Administrator</div>
+        <div class="badge-number">9</div>
+      </div>
+
+      <div class="page-body">
+        <h2 class="sub-title">5.2 Manajemen Master Data Jenis Sampah</h2>
+        <p>
+          Administrator dapat menambah, memperbarui, atau menghapus kategori klasifikasi jenis sampah pada tab <strong>"Jenis Sampah"</strong>.
+        </p>
+
+        <div class="img-box">
+          <img src="images/web_admin_jenis.png" style="max-height: 100mm;" alt="Gambar 6. Halaman Master Jenis Sampah">
+          <div class="img-caption">Gambar 6. Halaman Manajemen Master Jenis Sampah</div>
+        </div>
+
+        <p>Langkah pengoperasian penambahan klasifikasi sampah baru:</p>
+        
+        <div class="table-container">
+          <table class="manual-table">
+            <thead>
+              <tr>
+                <th style="width: 32%;">Item</th>
+                <th style="width: 68%;">Keterangan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="item-col">Nama Jenis Sampah (Unique)</td>
+                <td>Ketik nama kategori baru (contoh: <em>Kaca & Beling</em>, <em>Logam</em>). Basis data memvalidasi keunikan nama (Unique Constraint) agar tidak terjadi duplikasi.</td>
+              </tr>
+              <tr>
+                <td class="item-col">Tombol Simpan Kategori</td>
+                <td>Klik tombol hijau <span class="inline-btn inline-btn-green">Simpan Kategori</span> untuk memasukkan kategori ke basis data.</td>
+              </tr>
+              <tr>
+                <td class="item-col">Proteksi Hapus (Restrict)</td>
+                <td>Aturan integritas referensial <code>ON DELETE RESTRICT</code> otomatis mencegah penghapusan kategori jenis sampah jika kategori tersebut sudah terpakai pada transaksi laporan sampah aktif.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="page-footer">
+        <div class="footer-left">
+          <img src="images/logo_kemendikbud.svg" class="footer-logo" alt="Logo">
+          <div class="footer-text">
+            <strong>Petunjuk Penggunaan Aplikasi</strong><br>
+            Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik)<br>
+            Versi 2.1
+          </div>
+        </div>
+        <div class="footer-right">Hal | 9</div>
+      </div>
+    </div>
+
+    <!-- ==================== HALAMAN 13: BAB 5.3 MASTER WILAYAH (Hal | 10) ==================== -->
+    <div class="page" id="page-10">
+      <div class="top-badge-container">
+        <div class="badge-label">Portal Administrator</div>
+        <div class="badge-number">10</div>
+      </div>
+
+      <div class="page-body">
+        <h2 class="sub-title">5.3 Manajemen Master Data Wilayah</h2>
+        <p>
+          Pemetaan zonasi operasional pengelolaan sampah dilakukan melalui tab <strong>"Wilayah"</strong> pada dashboard administrator.
+        </p>
+
+        <div class="img-box">
+          <img src="images/web_admin_wilayah.png" style="max-height: 100mm;" alt="Gambar 7. Halaman Master Wilayah">
+          <div class="img-caption">Gambar 7. Halaman Manajemen Master Wilayah</div>
+        </div>
+
+        <p>Langkah pengoperasian penambahan zonasi wilayah baru:</p>
+        
+        <div class="table-container">
+          <table class="manual-table">
+            <thead>
+              <tr>
+                <th style="width: 32%;">Item</th>
+                <th style="width: 68%;">Keterangan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="item-col">Nama Wilayah (Unique)</td>
+                <td>Ketik nama kecamatan atau area administratif baru (contoh: <em>Kecamatan Cengkareng</em>, <em>Kecamatan Kebayoran Baru</em>). Sistem memastikan tidak ada duplikasi wilayah.</td>
+              </tr>
+              <tr>
+                <td class="item-col">Tombol Simpan Wilayah</td>
+                <td>Klik tombol hijau <span class="inline-btn inline-btn-green">Simpan Wilayah</span> untuk menyimpan wilayah ke database PostgreSQL.</td>
+              </tr>
+              <tr>
+                <td class="item-col">Proteksi Relasi Wilayah</td>
+                <td>Wilayah yang memiliki riwayat laporan warga terikat aturan referensial <em>RESTRICT</em> sehingga tidak dapat dihapus sembarangan sebelum laporan dialihkan.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="page-footer">
+        <div class="footer-left">
+          <img src="images/logo_kemendikbud.svg" class="footer-logo" alt="Logo">
+          <div class="footer-text">
+            <strong>Petunjuk Penggunaan Aplikasi</strong><br>
+            Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik)<br>
+            Versi 2.1
+          </div>
+        </div>
+        <div class="footer-right">Hal | 10</div>
+      </div>
+    </div>
+
+    <!-- ==================== HALAMAN 14: BAB 6 RELASI BASIS DATA (ERD) (Hal | 11) ==================== -->
+    <div class="page" id="page-11">
+      <div class="top-badge-container">
+        <div class="badge-label">Relasi Database & Transaksi</div>
+        <div class="badge-number">11</div>
+      </div>
+
+      <div class="page-body">
+        <h1 class="chapter-title">6 Menu Inspeksi Relasi Database & Transaksi</h1>
+
+        <h2 class="sub-title">6.1 Diagram ERD Lengkap 10 Model Basis Data</h2>
+        <p>
+          Arsitektur penyimpanan data EcoResik memenuhi prinsip normalisasi 3NF dengan 10 entitas relasional yang saling terhubung di pgAdmin PostgreSQL:
+        </p>
+
+        <div class="img-box">
+          <img src="images/erd_full.png" style="max-height: 110mm;" alt="Gambar 8. ERD Lengkap PostgreSQL">
+          <div class="img-caption">Gambar 8. Diagram Lengkap Entity Relationship Diagram (ERD) PostgreSQL di pgAdmin</div>
+        </div>
+
+        <p>
+          Kesepuluh entitas mencakup: <strong>User</strong> (Pengguna/NIK), <strong>JenisSampah</strong> (Kategori), <strong>Wilayah</strong> (Lokasi), <strong>LaporanSampah</strong> (Pelaporan), <strong>FotoSampah</strong> (Foto Bukti 1:1), <strong>Petugas</strong> (Personel), <strong>JadwalPengangkutan</strong> (Jadwal Ritase), <strong>PetugasJadwal</strong> (Junction N:N), <strong>BankSampah</strong> (Fasilitas), dan <strong>BankSampahJenis</strong> (Junction N:N).
+        </p>
+      </div>
+
+      <div class="page-footer">
+        <div class="footer-left">
+          <img src="images/logo_kemendikbud.svg" class="footer-logo" alt="Logo">
+          <div class="footer-text">
+            <strong>Petunjuk Penggunaan Aplikasi</strong><br>
+            Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik)<br>
+            Versi 2.1
+          </div>
+        </div>
+        <div class="footer-right">Hal | 11</div>
+      </div>
+    </div>
+
+    <!-- ==================== HALAMAN 15: BAB 6.2 RELASI 1:1 & 1:N (Hal | 12) ==================== -->
+    <div class="page" id="page-12">
+      <div class="top-badge-container">
+        <div class="badge-label">Relasi Database & Transaksi</div>
+        <div class="badge-number">12</div>
+      </div>
+
+      <div class="page-body">
+        <h2 class="sub-title">6.2 Relasi One-to-One (1:1): LaporanSampah ↔ FotoSampah</h2>
+        <p>
+          Setiap 1 (satu) laporan sampah memiliki tepat 1 (satu) foto dokumentasi fisik. Kolom <code>laporanId</code> pada tabel <code>FotoSampah</code> berstatus <strong>UNIQUE</strong> dan <strong>NOT NULL</strong>, sehingga mustahil terdapat laporan yang memiliki foto ganda atau foto tanpa kepemilikan laporan.
+        </p>
+
+        <div class="img-box">
+          <img src="images/erd_1to1.png" style="max-height: 44mm;" alt="Gambar 9. Relasi 1-to-1">
+          <div class="img-caption">Gambar 9. Diagram Relasi One-to-One (1:1) pada pgAdmin</div>
+        </div>
+
+        <h2 class="sub-title">6.3 Relasi One-to-Many (1:N): User ↔ LaporanSampah</h2>
+        <p>
+          Setiap 1 (satu) akun warga dapat membuat banyak laporan sampah seiring waktu, namun setiap baris laporan sampah hanya dimiliki oleh tepat 1 (satu) akun pelapor melalui Foreign Key <code>userId</code>.
+        </p>
+
+        <div class="img-box">
+          <img src="images/erd_1toN.png" style="max-height: 48mm;" alt="Gambar 10. Relasi 1-to-N">
+          <div class="img-caption">Gambar 10. Diagram Relasi One-to-Many (1:N) pada pgAdmin</div>
+        </div>
+      </div>
+
+      <div class="page-footer">
+        <div class="footer-left">
+          <img src="images/logo_kemendikbud.svg" class="footer-logo" alt="Logo">
+          <div class="footer-text">
+            <strong>Petunjuk Penggunaan Aplikasi</strong><br>
+            Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik)<br>
+            Versi 2.1
+          </div>
+        </div>
+        <div class="footer-right">Hal | 12</div>
+      </div>
+    </div>
+
+    <!-- ==================== HALAMAN 16: BAB 6.4 RELASI N:N & TRANSAKSI ACID (Hal | 13) ==================== -->
+    <div class="page" id="page-13">
+      <div class="top-badge-container">
+        <div class="badge-label">Relasi Database & Transaksi</div>
+        <div class="badge-number">13</div>
+      </div>
+
+      <div class="page-body">
+        <h2 class="sub-title">6.4 Relasi Many-to-Many (N:N): Petugas ↔ Jadwal</h2>
+        <p>
+          Relasi banyak-ke-banyak dimodelkan melalui tabel perantara (<em>junction table</em>) bernama <code>PetugasJadwal</code> dengan <em>Composite Primary Key</em> (<code>petugasId</code>, <code>jadwalId</code>). Satu petugas dapat bertugas di banyak jadwal, dan satu jadwal pengangkutan melibatkan banyak personil kebersihan.
+        </p>
+
+        <div class="img-box">
+          <img src="images/erd_NtoN.png" style="max-height: 44mm;" alt="Gambar 11. Relasi N-to-N">
+          <div class="img-caption">Gambar 11. Diagram Relasi Many-to-Many (N:N) pada pgAdmin</div>
+        </div>
+
+        <h2 class="sub-title">6.5 Pengujian Transaksi Basis Data ACID</h2>
+        <p>
+          Pada rute <code>/relasi</code>, pengguna dapat menguji eksekusi transaksi atomik basis data. Sistem menjamin jika terjadi kegagalan saat pengunggahan foto, seluruh operasi dibatalkan (<em>ROLLBACK</em>) tanpa menyisakan catatan sampah pada basis data.
+        </p>
+
+        <div class="img-box">
+          <img src="images/web_relasi.png" style="max-height: 48mm;" alt="Gambar 12. Halaman Inspeksi Transaksi Relasi Web">
+          <div class="img-caption">Gambar 12. Halaman Inspeksi Transaksi Relasi Web EcoResik</div>
+        </div>
+      </div>
+
+      <div class="page-footer">
+        <div class="footer-left">
+          <img src="images/logo_kemendikbud.svg" class="footer-logo" alt="Logo">
+          <div class="footer-text">
+            <strong>Petunjuk Penggunaan Aplikasi</strong><br>
+            Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik)<br>
+            Versi 2.1
+          </div>
+        </div>
+        <div class="footer-right">Hal | 13</div>
+      </div>
+    </div>
+
+    <!-- ==================== HALAMAN 17: BAB 7 REPOSITORI & DEPLOYMENT (Hal | 14) ==================== -->
+    <div class="page" id="page-14">
+      <div class="top-badge-container">
+        <div class="badge-label">Repositori & Deployment</div>
+        <div class="badge-number">14</div>
+      </div>
+
+      <div class="page-body">
+        <h1 class="chapter-title">7 Repositori & Deployment Online</h1>
+
+        <h2 class="sub-title">7.1 Repositori Kode Sumber GitHub</h2>
+        <p>
+          Seluruh kode program sistem EcoResik dikelola menggunakan GitHub Version Control dengan struktur folder Next.js App Router, schema Prisma, seed database, dan berkas dump SQL <code>pengelolaan_sampah.sql</code>:
+        </p>
+
+        <div class="img-box">
+          <img src="images/github_preview.png" style="max-height: 48mm;" alt="Gambar 13. Repositori GitHub EcoResik">
+          <div class="img-caption">Gambar 13. Struktur File dan Repositori Proyek di GitHub</div>
+        </div>
+
+        <h2 class="sub-title">7.2 Deployment Cloud Vercel & Basis Data Online</h2>
+        <p>
+          Aplikasi telah terhubung ke repositori GitHub dan dideploy secara otomatis (CI/CD) ke server cloud Vercel sehingga dapat diakses secara global:
+        </p>
+
+        <div class="img-box">
+          <img src="images/github_about.png" style="max-height: 46mm;" alt="Gambar 14. Detail Vercel Deployment">
+          <div class="img-caption">Gambar 14. Informasi Live Deployment Vercel pada GitHub About</div>
+        </div>
+      </div>
+
+      <div class="page-footer">
+        <div class="footer-left">
+          <img src="images/logo_kemendikbud.svg" class="footer-logo" alt="Logo">
+          <div class="footer-text">
+            <strong>Petunjuk Penggunaan Aplikasi</strong><br>
+            Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik)<br>
+            Versi 2.1
+          </div>
+        </div>
+        <div class="footer-right">Hal | 14</div>
+      </div>
+    </div>
+
+    <!-- ==================== HALAMAN 18: BAB 8 INFORMASI PERUBAHAN DOKUMEN (Hal | 15) ==================== -->
+    <div class="page" id="page-15">
+      <div class="top-badge-container">
+        <div class="badge-label">Informasi Perubahan Dokumen</div>
+        <div class="badge-number">15</div>
+      </div>
+
+      <div class="page-body">
+        <h1 class="chapter-title">Informasi Perubahan Dokumen</h1>
+
+        <p style="margin-bottom: 12px;">
+          Tabel berikut merekam seluruh riwayat perubahan, penambahan fitur, dan penerbitan dokumen petunjuk penggunaan aplikasi EcoResik secara resmi:
+        </p>
+
+        <div class="table-container">
+          <table class="manual-table">
+            <thead>
+              <tr>
+                <th style="width: 20%;">Tanggal</th>
+                <th style="width: 50%;">Deskripsi</th>
+                <th style="width: 12%;">Versi</th>
+                <th style="width: 18%;">Dibuat Oleh</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="text-align: center;">15 Juli 2026</td>
+                <td>
+                  Pembuatan awal dokumen User Manual dan perancangan skema awal basis data relasional sistem pengelolaan sampah.
+                </td>
+                <td style="text-align: center; font-weight: bold;">1.0</td>
+                <td>Tim Pengembang EcoResik</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">03 Agustus 2026</td>
+                <td>
+                  1. Penambahan formulir registrasi warga baru<br>
+                  2. Penambahan autentikasi multi-role (Admin & Warga)<br>
+                  3. Implementasi formulir pelaporan sampah berfoto (1:1)<br>
+                  4. Penambahan portal monitoring administrator
+                </td>
+                <td style="text-align: center; font-weight: bold;">1.5</td>
+                <td>Tim Pengembang EcoResik</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">07 September 2026</td>
+                <td>
+                  1. Implementasi ERD 10 model basis data relasional lengkap<br>
+                  2. Penambahan menu inspeksi relasi 1:1, 1:N, dan N:N<br>
+                  3. Implementasi pengujian transaksi atomik (ACID)<br>
+                  4. Pembaruan tangkapan layar pgAdmin pada manual
+                </td>
+                <td style="text-align: center; font-weight: bold;">2.0</td>
+                <td>Dimas (Siswa)</td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">28 September 2026</td>
+                <td>
+                  1. Standardisasi format User Manual resmi Kemendikbud<br>
+                  2. Penambahan tabel penjelasan formulir (Item & Keterangan)<br>
+                  3. Penyempurnaan dokumentasi deployment online Vercel<br>
+                  4. Penyertaan berkas basis data PostgreSQL (dump SQL)
+                </td>
+                <td style="text-align: center; font-weight: bold;">2.1</td>
+                <td>Dimas (Siswa)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="margin-top: 25px; border: 1px solid #d1d5db; background: #f9fafb; padding: 14px; border-radius: 6px;">
+          <h3 style="font-size: 9.5pt; font-weight: bold; margin-bottom: 5px;">Pengesahan Dokumen:</h3>
+          <p style="font-size: 8.5pt; margin: 0; line-height: 1.45;">
+            Dokumen Petunjuk Penggunaan Aplikasi (User Manual) EcoResik Versi 2.1 ini telah diverifikasi dan disahkan sebagai panduan operasional resmi untuk memenuhi kriteria penilaian Ujian Praktik Mandiri Basis Data Relasional Terpadu.
+          </p>
+        </div>
+      </div>
+
+      <div class="page-footer">
+        <div class="footer-left">
+          <img src="images/logo_kemendikbud.svg" class="footer-logo" alt="Logo">
+          <div class="footer-text">
+            <strong>Petunjuk Penggunaan Aplikasi</strong><br>
+            Sistem Informasi Pengelolaan Sampah Terpadu (EcoResik)<br>
+            Versi 2.1
+          </div>
+        </div>
+        <div class="footer-right">Hal | 15</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

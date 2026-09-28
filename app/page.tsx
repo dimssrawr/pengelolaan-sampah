@@ -122,6 +122,14 @@ export default function Home() {
             </div>
           </div>
           <div className="flex items-center gap-3">
+            <a
+              href="/user-manual-resmi.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-3.5 py-2 text-xs font-bold text-sky-700 dark:text-sky-400 bg-sky-50 hover:bg-sky-100 dark:bg-sky-950/40 dark:hover:bg-sky-950/70 border border-sky-200/50 dark:border-sky-900/50 rounded-xl transition-all duration-200"
+            >
+              📖 Buku User Manual
+            </a>
             <Link
               href="/relasi"
               className="inline-flex items-center justify-center px-3.5 py-2 text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-950/70 border border-emerald-200/50 dark:border-emerald-900/50 rounded-xl transition-all duration-200"
