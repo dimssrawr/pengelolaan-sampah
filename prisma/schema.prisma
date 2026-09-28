@@ -1,0 +1,116 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 1. User model: UUID Primary Key, Unique email/noHp/nik, required nama
+model User {
+  id       String          @id @default(uuid()) @db.Uuid // UUID Primary Key
+  nama     String                                        // Required (Not Null)
+  email    String          @unique                       // Unique Constraint
+  noHp     String          @unique                       // Unique Constraint
+  nik      String          @unique                       // Unique Constraint
+  password String                                        // Required (for login)
+  role     String          @default("USER")              // Role distinction (ADMIN or USER)
+  laporan  LaporanSampah[]                               // Relation (One-to-Many)
+}
+
+// 2. JenisSampah: UUID Primary Key, Unique namaJenis
+model JenisSampah {
+  id              String             @id @default(uuid()) @db.Uuid // UUID Primary Key
+  namaJenis       String             @unique                       // Unique Constraint
+  laporan         LaporanSampah[]                               // Relation (One-to-Many)
+  bankSampahJenis BankSampahJenis[]                             // Relation (Many-to-Many via BankSampahJenis)
+}
+
+// 3. Wilayah: UUID Primary Key, Unique namaWilayah
+model Wilayah {
+  id                 String               @id @default(uuid()) @db.Uuid // UUID Primary Key
+  namaWilayah        String               @unique                       // Unique Constraint
+  laporan            LaporanSampah[]                               // Relation (One-to-Many)
+  jadwalPengangkutan JadwalPengangkutan[]                              // Relation (One-to-Many)
+  bankSampah         BankSampah[]                                      // Relation (One-to-Many)
+}
+
+// 4. LaporanSampah: UUID Primary Key, connects User, Jenis, and Wilayah
+model LaporanSampah {
+  id            String      @id @default(uuid()) @db.Uuid // UUID Primary Key
+  berat         Float                                     // Required (Not Null)
+  tanggalLapor  DateTime    @default(now())               // Required (Not Null)
+  
+  // Relations (Foreign Keys)
+  userId        String      @db.Uuid
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  jenisSampahId String      @db.Uuid
+  jenisSampah   JenisSampah @relation(fields: [jenisSampahId], references: [id], onDelete: Restrict)
+  
+  wilayahId     String      @db.Uuid
+  wilayah       Wilayah     @relation(fields: [wilayahId], references: [id], onDelete: Restrict)
+  
+  fotoSampah    FotoSampah?                               // Relation (One-to-One)
+}
+
+// 5. FotoSampah: One-to-One connection with LaporanSampah
+model FotoSampah {
+  id        String        @id @default(uuid()) @db.Uuid // UUID Primary Key
+  imageUrl  String                                      // Required (Not Null)
+  
+  laporanId String        @unique @db.Uuid              // @unique ensures One-to-One relation
+  laporan   LaporanSampah @relation(fields: [laporanId], references: [id], onDelete: Cascade)
+}
+
+// 6. Petugas: Petugas operasional kebersihan / pengangkut sampah
+model Petugas {
+  id            String          @id @default(uuid()) @db.Uuid // UUID Primary Key
+  namaPetugas   String                                        // Required (Not Null)
+  noHp          String          @unique                       // Unique Constraint
+  jabatan       String                                        // e.g. "Supir Truk", "Kolektor"
+  petugasJadwal PetugasJadwal[]                               // Relation (Many-to-Many via PetugasJadwal)
+}
+
+// 7. JadwalPengangkutan: Jadwal operasional rutin pengangkutan sampah
+model JadwalPengangkutan {
+  id             String          @id @default(uuid()) @db.Uuid // UUID Primary Key
+  hari           String                                        // e.g. "Senin & Kamis"
+  jamOperasional String                                        // e.g. "08:00 - 12:00 WIB"
+  wilayahId      String          @db.Uuid                      // Foreign Key (1 to N dari Wilayah)
+  wilayah        Wilayah         @relation(fields: [wilayahId], references: [id], onDelete: Cascade)
+  petugasJadwal  PetugasJadwal[]                               // Relation (Many-to-Many via PetugasJadwal)
+}
+
+// 8. PetugasJadwal: Junction Table Relasi Many-to-Many (N to N) Petugas & Jadwal
+model PetugasJadwal {
+  id        String             @id @default(uuid()) @db.Uuid // UUID Primary Key
+  petugasId String             @db.Uuid                      // Foreign Key ke Petugas
+  jadwalId  String             @db.Uuid                      // Foreign Key ke JadwalPengangkutan
+  petugas   Petugas            @relation(fields: [petugasId], references: [id], onDelete: Cascade)
+  jadwal    JadwalPengangkutan @relation(fields: [jadwalId], references: [id], onDelete: Cascade)
+
+  @@unique([petugasId, jadwalId]) // Unique Composite agar tidak ada penugasan ganda
+}
+
+// 9. BankSampah: Lokasi mitra penampungan dan daur ulang per wilayah
+model BankSampah {
+  id              String            @id @default(uuid()) @db.Uuid // UUID Primary Key
+  namaBank        String            @unique                       // Unique Constraint
+  alamat          String                                          // Required (Not Null)
+  wilayahId       String            @db.Uuid                      // Foreign Key (1 to N dari Wilayah)
+  wilayah         Wilayah           @relation(fields: [wilayahId], references: [id], onDelete: Cascade)
+  bankSampahJenis BankSampahJenis[]                               // Relation (Many-to-Many via BankSampahJenis)
+}
+
+// 10. BankSampahJenis: Junction Table Relasi Many-to-Many (N to N) BankSampah & JenisSampah
+model BankSampahJenis {
+  id            String      @id @default(uuid()) @db.Uuid // UUID Primary Key
+  bankSampahId  String      @db.Uuid                      // Foreign Key ke BankSampah
+  jenisSampahId String      @db.Uuid                      // Foreign Key ke JenisSampah
+  hargaPerKg    Float                                     // Harga tukar rupiah per kg
+  bankSampah    BankSampah  @relation(fields: [bankSampahId], references: [id], onDelete: Cascade)
+  jenisSampah   JenisSampah @relation(fields: [jenisSampahId], references: [id], onDelete: Cascade)
+
+  @@unique([bankSampahId, jenisSampahId]) // Unique Composite agar harga per jenis di 1 bank sampah unik
+}
