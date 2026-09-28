@@ -44,3 +44,8 @@ next-env.d.ts
 .chrome*
 .edge*
 
+# User Manual & PDF
+*.pdf
+public/*.pdf
+public/user-manual*.html
+
