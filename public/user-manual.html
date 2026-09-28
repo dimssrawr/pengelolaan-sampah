@@ -17,26 +17,32 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: #0f172a;
       color: #334155;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
-    /* Print settings for A4 pages */
+    /* Print settings */
     @page {
       size: A4 portrait;
-      margin: 0;
+      margin: 15mm;
     }
 
     @media print {
       body {
         background-color: #ffffff;
       }
-      .page {
-        margin: 0 !important;
-        box-shadow: none !important;
-        page-break-after: always;
-      }
-      .no-print {
+      .toolbar {
         display: none !important;
+      }
+      .doc-wrapper {
+        padding: 0 !important;
+        box-shadow: none !important;
+        max-width: 100% !important;
+      }
+      .chapter {
+        break-before: page;
+      }
+      .no-break {
+        break-inside: avoid;
       }
     }
 
@@ -45,20 +51,22 @@
       top: 15px;
       right: 20px;
       z-index: 999;
-      background: rgba(15, 23, 42, 0.9);
+      background: rgba(15, 23, 42, 0.95);
       padding: 10px 16px;
       border-radius: 12px;
       display: flex;
+      align-items: center;
       gap: 12px;
       backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     }
 
     .btn-print {
       background: linear-gradient(135deg, #10b981, #059669);
       color: white;
       border: none;
-      padding: 10px 18px;
+      padding: 10px 20px;
       font-weight: 700;
       font-size: 14px;
       border-radius: 8px;
@@ -70,79 +78,33 @@
     }
     .btn-print:hover {
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
     }
 
-    .page-container {
+    .doc-container {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 0;
-      gap: 30px;
-    }
-
-    /* Individual A4 Page Sheet */
-    .page {
-      width: 210mm;
-      min-height: 297mm;
-      height: 297mm;
-      background: #ffffff;
-      padding: 22mm 20mm;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    /* Header & Footer on Pages */
-    .page-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid #e2e8f0;
-      padding-bottom: 12px;
-      margin-bottom: 20px;
-    }
-    .page-header-logo {
-      font-weight: 800;
-      font-size: 18px;
-      color: #0f172a;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .page-header-logo span {
-      color: #10b981;
-    }
-    .page-header-doc {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #64748b;
-    }
-
-    .page-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid #e2e8f0;
-      padding-top: 10px;
-      font-size: 10px;
-      color: #94a3b8;
-      font-weight: 600;
-    }
-
-    /* COVER PAGE */
-    .page-cover {
-      background: linear-gradient(135deg, #064e3b 0%, #065f46 40%, #047857 100%);
-      color: white;
       justify-content: center;
-      align-items: center;
+      padding: 40px 15px;
+    }
+
+    .doc-wrapper {
+      width: 100%;
+      max-width: 850px;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 40px 45px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    /* COVER BANNER */
+    .cover-card {
+      background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%);
+      color: white;
+      border-radius: 16px;
+      padding: 35px 30px;
       text-align: center;
-      padding: 40mm 20mm;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 20px rgba(6, 78, 59, 0.25);
     }
     .cover-badge {
       display: inline-block;
@@ -150,124 +112,125 @@
       border: 1px solid rgba(16, 185, 129, 0.4);
       color: #6ee7b7;
       font-weight: 700;
-      font-size: 13px;
-      padding: 6px 18px;
+      font-size: 11px;
+      padding: 4px 14px;
       border-radius: 99px;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      margin-bottom: 24px;
+      margin-bottom: 14px;
     }
     .cover-title {
-      font-size: 42px;
+      font-size: 32px;
       font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -1px;
-      margin-bottom: 16px;
+      line-height: 1.2;
+      margin-bottom: 8px;
     }
     .cover-title span {
       background: linear-gradient(to right, #34d399, #a7f3d0);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .cover-subtitle {
-      font-size: 16px;
+    .cover-desc {
+      font-size: 13px;
       color: #d1fae5;
-      max-width: 500px;
-      margin: 0 auto 40px auto;
-      font-weight: 400;
+      max-width: 520px;
+      margin: 0 auto 20px auto;
     }
-    .cover-meta {
+    .cover-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(10px);
-      padding: 24px 32px;
-      border-radius: 16px;
+      padding: 14px;
+      border-radius: 10px;
       text-align: left;
-      width: 100%;
-      max-width: 480px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
     }
-    .cover-meta-item {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 8px;
+    .cover-grid-item {
+      font-size: 11px;
     }
-    .cover-meta-item:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-    .cover-meta-label {
+    .cover-grid-label {
       color: #a7f3d0;
-      font-weight: 500;
+      display: block;
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 600;
     }
-    .cover-meta-val {
+    .cover-grid-val {
       color: #ffffff;
       font-weight: 700;
+      font-size: 12px;
     }
 
-    /* CONTENT STYLING */
-    .content-title {
-      font-size: 22px;
+    /* CHAPTER HEADINGS */
+    .chapter {
+      margin-bottom: 28px;
+    }
+    .chapter-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+    .chapter-num {
+      width: 28px;
+      height: 28px;
+      background: #10b981;
+      color: white;
+      border-radius: 8px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .chapter-title {
+      font-size: 18px;
       font-weight: 800;
       color: #0f172a;
-      letter-spacing: -0.5px;
-      margin-bottom: 4px;
-    }
-    .content-subtitle {
-      font-size: 13px;
-      color: #64748b;
-      margin-bottom: 18px;
     }
 
-    .section-box {
+    /* CARDS */
+    .card {
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
     }
-    .section-title {
+    .card-title {
       font-size: 14px;
       font-weight: 700;
       color: #0f172a;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    .section-title-icon {
-      width: 22px;
-      height: 22px;
-      background: #10b981;
-      color: white;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-    }
 
+    /* STEPS */
     .step-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
     .step-item {
       display: flex;
-      gap: 12px;
+      align-items: flex-start;
+      gap: 10px;
       font-size: 12px;
+      color: #334155;
     }
-    .step-num {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
+    .step-badge {
       background: #e2e8f0;
       color: #0f172a;
       font-weight: 800;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -276,31 +239,35 @@
       margin-top: 1px;
     }
 
-    .info-card {
-      background: #ecfdf5;
-      border: 1px solid #a7f3d0;
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 11px;
-      color: #065f46;
-      margin-top: 12px;
+    /* GRID & BADGES */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
-    .info-card strong {
-      color: #047857;
+    .sub-box {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 12px;
     }
 
-    .role-badge {
+    .badge {
       display: inline-block;
-      padding: 3px 8px;
+      padding: 2px 8px;
       border-radius: 6px;
       font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
+      margin-bottom: 4px;
     }
-    .role-user { background: #dbeafe; color: #1e40af; }
-    .role-admin { background: #fef3c7; color: #92400e; }
+    .badge-user { background: #dbeafe; color: #1e40af; }
+    .badge-admin { background: #fef3c7; color: #92400e; }
+    .badge-green { background: #dcfce7; color: #15803d; }
+    .badge-purple { background: #f3e8ff; color: #7e22ce; }
 
-    .code-pill {
+    .code-tag {
       font-family: 'JetBrains Mono', monospace;
       background: #1e293b;
       color: #38bdf8;
@@ -309,321 +276,261 @@
       font-size: 11px;
     }
 
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
+    .alert-box {
+      background: #ecfdf5;
+      border-left: 4px solid #10b981;
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      font-size: 12px;
+      color: #065f46;
+      margin-top: 10px;
+    }
+    .alert-box strong {
+      color: #047857;
+    }
+
+    .footer-doc {
+      margin-top: 30px;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
 
   <!-- Floating Print Button -->
-  <div class="toolbar no-print">
+  <div class="toolbar">
     <button class="btn-print" onclick="window.print()">
       🖨️ Cetak / Simpan ke PDF Sekarang
     </button>
   </div>
 
-  <div class="page-container">
+  <div class="doc-container">
+    <div class="doc-wrapper">
 
-    <!-- ================= HALAMAN 1: COVER ================= -->
-    <div class="page page-cover">
-      <div>
+      <!-- COVER BANNER -->
+      <div class="cover-card">
         <div class="cover-badge">BUKU PANDUAN PENGGUNA RESMI</div>
         <h1 class="cover-title">USER MANUAL<br><span>ECORESIK WEB</span></h1>
-        <p class="cover-subtitle">
-          Sistem Informasi Pengelolaan Sampah Masyarakat Berbasis Next.js & Basis Data PostgreSQL
+        <p class="cover-desc">
+          Sistem Informasi Pengelolaan Sampah Masyarakat Terintegrasi Basis Data PostgreSQL & Transaksi Atomik
         </p>
-      </div>
 
-      <div class="cover-meta">
-        <div class="cover-meta-item">
-          <span class="cover-meta-label">Nama Aplikasi</span>
-          <span class="cover-meta-val">EcoResik System v1.0</span>
-        </div>
-        <div class="cover-meta-item">
-          <span class="cover-meta-label">Penyusun</span>
-          <span class="cover-meta-val">Dimas (Siswa)</span>
-        </div>
-        <div class="cover-meta-item">
-          <span class="cover-meta-label">Website Online</span>
-          <span class="cover-meta-val">pengelolaan-sampah-vert.vercel.app</span>
-        </div>
-        <div class="cover-meta-item">
-          <span class="cover-meta-label">Basis Data</span>
-          <span class="cover-meta-val">PostgreSQL 18 (RDBMS & Constraints)</span>
-        </div>
-        <div class="cover-meta-item">
-          <span class="cover-meta-label">Tahun Rilis</span>
-          <span class="cover-meta-val">2026</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ================= HALAMAN 2: PENDAHULUAN & AKSES ================= -->
-    <div class="page">
-      <div>
-        <div class="page-header">
-          <div class="page-header-logo">Eco<span>Resik</span> Manual</div>
-          <div class="page-header-doc">Bab 1: Pendahuluan & Akses Akun</div>
-        </div>
-
-        <h2 class="content-title">1. Pendahuluan & Akses Sistem</h2>
-        <p class="content-subtitle">Mengenal platform EcoResik, cara mengakses, dan otentikasi login.</p>
-
-        <div class="section-box">
-          <div class="section-title">
-            <span class="section-title-icon">ℹ️</span>
-            Tentang Aplikasi EcoResik
+        <div class="cover-grid">
+          <div class="cover-grid-item">
+            <span class="cover-grid-label">Penyusun</span>
+            <span class="cover-grid-val">Dimas (Siswa)</span>
           </div>
-          <p style="font-size: 12px; color: #475569; margin-bottom: 10px;">
-            <strong>EcoResik</strong> adalah aplikasi pelaporan sampah terpadu yang menghubungkan masyarakat (warga) dengan administrator kebersihan. Sistem memastikan data valid menggunakan 10 tabel basis data relasional dengan UUID, Unique Constraints, serta transaksi database ACID.
+          <div class="cover-grid-item">
+            <span class="cover-grid-label">Platform</span>
+            <span class="cover-grid-val">Next.js & PostgreSQL</span>
+          </div>
+          <div class="cover-grid-item">
+            <span class="cover-grid-label">Website Online</span>
+            <span class="cover-grid-val">pengelolaan-sampah-vert.vercel.app</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BAB 1: PENDAHULUAN & AKSES -->
+      <div class="chapter no-break">
+        <div class="chapter-header">
+          <div class="chapter-num">1</div>
+          <div class="chapter-title">Pendahuluan & Cara Masuk Sistem</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🌐 Alamat Akses Website</div>
+          <p style="font-size: 12px; color: #475569; margin-bottom: 8px;">
+            Aplikasi dapat dibuka langsung melalui laptop atau HP tanpa perlu instalasi aplikasi tambahan:
           </p>
-          <div style="font-size: 11px; color: #64748b;">
-            • <strong>Alamat Live Vercel:</strong> <span class="code-pill">https://pengelolaan-sampah-vert.vercel.app</span><br>
-            • <strong>Alamat Lokal:</strong> <span class="code-pill">http://localhost:3000</span>
+          <div style="font-size: 12px;">
+            • <strong>Link Online (Vercel):</strong> <span class="code-tag">https://pengelolaan-sampah-vert.vercel.app</span><br>
+            • <strong>Link Server Lokal:</strong> <span class="code-tag">http://localhost:3000</span>
           </div>
         </div>
 
-        <div class="section-box">
-          <div class="section-title">
-            <span class="section-title-icon">🔐</span>
-            Prosedur Masuk Sistem (Login Multi-Role)
-          </div>
-          <div class="step-list">
+        <div class="card">
+          <div class="card-title">🔐 Prosedur Login (Multi-Role)</div>
+          <div class="step-list" style="margin-bottom: 12px;">
             <div class="step-item">
-              <span class="step-num">1</span>
-              <div>Buka halaman login di <span class="code-pill">/login</span>.</div>
+              <span class="step-badge">1</span>
+              <div>Buka halaman login di menu atas atau akses <span class="code-tag">/login</span>.</div>
             </div>
             <div class="step-item">
-              <span class="step-num">2</span>
-              <div>Masukkan Email dan Password akun Anda.</div>
-            </div>
-            <div class="step-item">
-              <span class="step-num">3</span>
-              <div>Klik tombol <strong>"Masuk Ke Portal"</strong>. Sistem otomatis mendeteksi peran Anda:</div>
+              <span class="step-badge">2</span>
+              <div>Masukkan Email dan Password, lalu klik <strong>"Masuk Ke Portal"</strong>.</div>
             </div>
           </div>
 
-          <div class="grid-2" style="margin-top: 12px;">
-            <div style="background: white; border: 1px solid #cbd5e1; padding: 10px; border-radius: 8px;">
-              <span class="role-badge role-user">Role Warga (User)</span>
-              <p style="font-size: 11px; margin-top: 4px; color: #334155;">
+          <div class="grid-2">
+            <div class="sub-box">
+              <span class="badge badge-user">Akun Warga (User)</span>
+              <p style="font-size: 11px; margin-top: 4px;">
                 <strong>Email:</strong> budi@gmail.com<br>
                 <strong>Password:</strong> warga123<br>
-                <em>Otomatis diarahkan ke <code>/user</code></em>
+                <em>Otomatis masuk ke Portal Warga (<code>/user</code>)</em>
               </p>
             </div>
-            <div style="background: white; border: 1px solid #cbd5e1; padding: 10px; border-radius: 8px;">
-              <span class="role-badge role-admin">Role Administrator</span>
-              <p style="font-size: 11px; margin-top: 4px; color: #334155;">
+            <div class="sub-box">
+              <span class="badge badge-admin">Akun Administrator</span>
+              <p style="font-size: 11px; margin-top: 4px;">
                 <strong>Email:</strong> admin@ecoresik.com<br>
                 <strong>Password:</strong> admin123<br>
-                <em>Otomatis diarahkan ke <code>/admin</code></em>
+                <em>Otomatis masuk ke Admin Portal (<code>/admin</code>)</em>
               </p>
             </div>
           </div>
-        </div>
 
-        <div class="section-box">
-          <div class="section-title">
-            <span class="section-title-icon">📝</span>
-            Pendaftaran Warga Baru (Registrasi)
+          <div class="alert-box">
+            <strong>Pendaftaran Warga Baru:</strong> Warga yang belum memiliki akun dapat mengklik tombol <strong>"Daftar di sini"</strong> (<span class="code-tag">/register</span>) dengan memasukkan Nama, NIK 16 digit, Email, No HP, dan Password.
           </div>
-          <p style="font-size: 12px; color: #475569;">
-            Warga yang belum punya akun dapat mengklik <strong>"Daftar di sini"</strong> di halaman login (<span class="code-pill">/register</span>). Formulir dilengkapi validasi otomatis untuk <strong>NIK unik</strong>, <strong>Email unik</strong>, dan <strong>Nomor HP unik</strong>.
-          </p>
         </div>
       </div>
 
-      <div class="page-footer">
-        <span>EcoResik User Manual &copy; 2026</span>
-        <span>Halaman 2 dari 5</span>
-      </div>
-    </div>
-
-    <!-- ================= HALAMAN 3: PANDUAN WARGA ================= -->
-    <div class="page">
-      <div>
-        <div class="page-header">
-          <div class="page-header-logo">Eco<span>Resik</span> Manual</div>
-          <div class="page-header-doc">Bab 2: Panduan Role Warga (User)</div>
+      <!-- BAB 2: PANDUAN WARGA -->
+      <div class="chapter no-break">
+        <div class="chapter-header">
+          <div class="chapter-num">2</div>
+          <div class="chapter-title">Panduan Role Warga (User)</div>
         </div>
 
-        <h2 class="content-title">2. Panduan Penggunaan Role Warga</h2>
-        <p class="content-subtitle">Cara melaporkan sampah, mengunggah bukti foto, dan mengelola laporan.</p>
-
-        <div class="section-box">
-          <div class="section-title">
-            <span class="section-title-icon">📤</span>
-            Mengirim Laporan Sampah Baru
-          </div>
+        <div class="card">
+          <div class="card-title">📤 Mengirim Laporan Sampah Baru</div>
           <div class="step-list">
             <div class="step-item">
-              <span class="step-num">1</span>
-              <div>Masuk ke dashboard warga di <span class="code-pill">/user</span>.</div>
+              <span class="step-badge">1</span>
+              <div>Buka dashboard pelaporan warga di <span class="code-tag">/user</span>.</div>
             </div>
             <div class="step-item">
-              <span class="step-num">2</span>
-              <div>Isi <strong>Berat Sampah (Kg)</strong> dengan angka lebih dari 0 kg (Contoh: <code>15.5</code>).</div>
+              <span class="step-badge">2</span>
+              <div>Isi <strong>Berat Sampah (Kg)</strong> dengan angka desimal lebih dari 0 kg (Contoh: <code>15.3</code>).</div>
             </div>
             <div class="step-item">
-              <span class="step-num">3</span>
+              <span class="step-badge">3</span>
               <div>Pilih <strong>Jenis Sampah</strong> (Organik, Anorganik, B3, Plastik, Kertas).</div>
             </div>
             <div class="step-item">
-              <span class="step-num">4</span>
-              <div>Pilih <strong>Wilayah</strong> kecamatan lokasi sampah.</div>
+              <span class="step-badge">4</span>
+              <div>Pilih <strong>Wilayah</strong> kecamatan lokasi tumpukan sampah.</div>
             </div>
             <div class="step-item">
-              <span class="step-num">5</span>
+              <span class="step-badge">5</span>
               <div>Klik <strong>Choose File</strong> dan lampirkan foto fisik sampah (format JPG/PNG).</div>
             </div>
             <div class="step-item">
-              <span class="step-num">6</span>
+              <span class="step-badge">6</span>
               <div>Klik tombol hijau <strong>"Kirim Laporan"</strong>.</div>
             </div>
           </div>
 
-          <div class="info-card">
+          <div class="alert-box">
             <strong>Keunggulan Transaksi Atomik (ACID):</strong> Sistem menggunakan <code>prisma.$transaction</code> sehingga data laporan dan foto sampah dibuat bersamaan. Tidak akan pernah ada laporan tanpa foto bukti!
           </div>
         </div>
 
-        <div class="section-box">
-          <div class="section-title">
-            <span class="section-title-icon">📋</span>
-            Melihat & Mengelola Laporan Pribadi
-          </div>
+        <div class="card">
+          <div class="card-title">📋 Mengelola Laporan Pribadi</div>
           <p style="font-size: 12px; color: #475569; margin-bottom: 8px;">
-            Pada panel kanan dashboard warga, hanya laporan milik Anda sendiri yang akan ditampilkan (menjaga privasi data warga).
+            Pada tabel sisi kanan, Anda dapat melihat riwayat laporan yang pernah Anda kirimkan:
           </p>
           <div class="step-list">
             <div class="step-item">
-              <span class="step-num">✏️</span>
-              <div><strong>Mengubah Laporan:</strong> Klik tombol pensil hijau pada tabel untuk mengoreksi berat, kategori, atau mengganti foto.</div>
+              <span class="step-badge">✏️</span>
+              <div><strong>Mengubah Laporan:</strong> Klik tombol pensil hijau pada tabel untuk mengoreksi berat, kategori, atau foto bukti.</div>
             </div>
             <div class="step-item">
-              <span class="step-num">🗑️</span>
-              <div><strong>Menghapus Laporan:</strong> Klik tombol tempat sampah merah. Karena aturan <em>Cascade Delete</em>, foto sampah terkait akan otomatis ikut terhapus dari server.</div>
+              <span class="step-badge">🗑️</span>
+              <div><strong>Menghapus Laporan:</strong> Klik tombol tempat sampah merah. Foto sampah terkait akan otomatis ikut terhapus dari server (<em>Cascade Delete</em>).</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="page-footer">
-        <span>EcoResik User Manual &copy; 2026</span>
-        <span>Halaman 3 dari 5</span>
-      </div>
-    </div>
-
-    <!-- ================= HALAMAN 4: PANDUAN ADMIN ================= -->
-    <div class="page">
-      <div>
-        <div class="page-header">
-          <div class="page-header-logo">Eco<span>Resik</span> Manual</div>
-          <div class="page-header-doc">Bab 3: Panduan Role Administrator</div>
+      <!-- BAB 3: PANDUAN ADMIN -->
+      <div class="chapter no-break">
+        <div class="chapter-header">
+          <div class="chapter-num">3</div>
+          <div class="chapter-title">Panduan Role Administrator</div>
         </div>
 
-        <h2 class="content-title">3. Panduan Penggunaan Role Administrator</h2>
-        <p class="content-subtitle">Monitoring seluruh laporan se-kota dan pengelolaan data master.</p>
-
-        <div class="section-box">
-          <div class="section-title">
-            <span class="section-title-icon">📊</span>
-            Monitoring Seluruh Laporan Sampah Masuk
-          </div>
-          <p style="font-size: 12px; color: #475569; margin-bottom: 8px;">
-            Administrator dapat mengakses <span class="code-pill">/admin</span> untuk memantau akumulasi sampah dari seluruh warga di semua wilayah kecamatan secara terpusat.
-          </p>
-          <ul style="font-size: 12px; color: #334155; margin-left: 20px; display: flex; flex-direction: column; gap: 4px;">
-            <li>Melihat foto bukti sampah beresolusi penuh.</li>
-            <li>Melihat detail pelapor (Nama & ID Warga).</li>
-            <li>Melakukan tindakan verifikasi atau menghapus laporan sampah yang tidak valid.</li>
-          </ul>
-        </div>
-
-        <div class="section-box">
-          <div class="section-title">
-            <span class="section-title-icon">🗂️</span>
-            Manajemen Master Data Jenis Sampah & Wilayah
-          </div>
-          <div class="step-list">
-            <div class="step-item">
-              <span class="step-num">1</span>
-              <div>Pilih tab <strong>"Jenis Sampah"</strong> untuk menambah kategori baru (wajib unik).</div>
-            </div>
-            <div class="step-item">
-              <span class="step-num">2</span>
-              <div>Pilih tab <strong>"Wilayah"</strong> untuk mendaftarkan area kecamatan baru.</div>
-            </div>
-          </div>
-
-          <div class="info-card" style="background: #fffbeb; border-color: #fde68a; color: #92400e;">
-            <strong>Proteksi Restrict Delete:</strong> Kategori jenis sampah dan wilayah yang sedang digunakan oleh laporan sampah aktif tidak dapat dihapus oleh admin untuk menjaga integritas database.
-          </div>
-        </div>
-      </div>
-
-      <div class="page-footer">
-        <span>EcoResik User Manual &copy; 2026</span>
-        <span>Halaman 4 dari 5</span>
-      </div>
-    </div>
-
-    <!-- ================= HALAMAN 5: FITUR RELASI DATABASE ================= -->
-    <div class="page">
-      <div>
-        <div class="page-header">
-          <div class="page-header-logo">Eco<span>Resik</span> Manual</div>
-          <div class="page-header-doc">Bab 4: Fitur Relasi Database (1:1, 1:N, N:N)</div>
-        </div>
-
-        <h2 class="content-title">4. Fitur Demonstrasi Relasi Database</h2>
-        <p class="content-subtitle">Halaman inspeksi relasi PostgreSQL di menu <code>/relasi</code>.</p>
-
-        <div class="section-box">
-          <div class="section-title">
-            <span class="section-title-icon">1:1</span>
-            Relasi One to One (LaporanSampah ↔ FotoSampah)
-          </div>
+        <div class="card">
+          <div class="card-title">📊 Monitoring Seluruh Laporan Se-Kota</div>
           <p style="font-size: 12px; color: #475569;">
-            Setiap 1 laporan sampah tepat memiliki 1 foto bukti sampah fisik. Diatur oleh Foreign Key <code>laporanId</code> yang memiliki batasan <strong>Unique Constraint (@unique)</strong>.
+            Administrator memiliki wewenang penuh pada alamat <span class="code-tag">/admin</span> untuk memantau akumulasi sampah dari seluruh warga di semua wilayah kecamatan secara terpusat, memeriksa foto bukti resolusi penuh, dan menghapus laporan yang tidak valid.
           </p>
         </div>
 
-        <div class="section-box">
-          <div class="section-title">
-            <span class="section-title-icon">1:N</span>
-            Relasi One to Many (Wilayah / User ↔ LaporanSampah)
+        <div class="card">
+          <div class="card-title">🗂️ Manajemen Master Data (Jenis Sampah & Wilayah)</div>
+          <div class="grid-2">
+            <div class="sub-box">
+              <strong>Tab Jenis Sampah:</strong>
+              <p style="font-size: 11px; margin-top: 4px; color: #475569;">
+                Menambah kategori sampah baru (wajib unik). Kategori yang masih terpakai oleh laporan aktif tidak dapat dihapus (<em>Restrict Delete</em>).
+              </p>
+            </div>
+            <div class="sub-box">
+              <strong>Tab Wilayah:</strong>
+              <p style="font-size: 11px; margin-top: 4px; color: #475569;">
+                Mendaftarkan area kecamatan baru (wajib unik) untuk pemetaan lokasi penjemputan sampah.
+              </p>
+            </div>
           </div>
-          <p style="font-size: 12px; color: #475569;">
-            Satu Wilayah atau satu Pengguna (User) dapat memiliki banyak laporan sampah. Dihubungkan melalui Foreign Key <code>wilayahId</code> dan <code>userId</code>.
-          </p>
-        </div>
-
-        <div class="section-box">
-          <div class="section-title">
-            <span class="section-title-icon">N:N</span>
-            Relasi Many to Many (Petugas ↔ Jadwal & Bank Sampah ↔ Jenis)
-          </div>
-          <p style="font-size: 12px; color: #475569; margin-bottom: 6px;">
-            Diimplementasikan menggunakan tabel perantara (Junction Table):
-          </p>
-          <ul style="font-size: 11px; color: #334155; margin-left: 20px;">
-            <li><strong>PetugasJadwal:</strong> 1 Petugas menangani banyak jadwal, dan 1 Jadwal dikerjakan oleh tim petugas.</li>
-            <li><strong>BankSampahJenis:</strong> 1 Bank Sampah membeli banyak jenis sampah, dan 1 jenis sampah dapat disetorkan ke banyak bank sampah dengan harga berbeda.</li>
-          </ul>
         </div>
       </div>
 
-      <div class="page-footer">
-        <span>EcoResik User Manual &copy; 2026</span>
-        <span>Halaman 5 dari 5</span>
+      <!-- BAB 4: FITUR RELASI BASIS DATA -->
+      <div class="chapter no-break">
+        <div class="chapter-header">
+          <div class="chapter-num">4</div>
+          <div class="chapter-title">Fitur Relasi Basis Data (1:1, 1:N, N:N)</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🔍 Halaman Verifikasi Relasi (<code>/relasi</code>)</div>
+          <p style="font-size: 12px; color: #475569; margin-bottom: 10px;">
+            Aplikasi menyediakan halaman demonstrasi khusus di alamat <span class="code-tag">/relasi</span> untuk memverifikasi 3 jenis relasi PostgreSQL:
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div class="sub-box">
+              <span class="badge badge-green">1. Relasi One to One (1:1)</span>
+              <p style="font-size: 11px; color: #475569;">
+                <strong>LaporanSampah ↔ FotoSampah:</strong> 1 Laporan tepat memiliki 1 Foto Bukti melalui Foreign Key <code>laporanId</code> yang memiliki batasan Unique Constraint (<code>@unique</code>).
+              </p>
+            </div>
+
+            <div class="sub-box">
+              <span class="badge badge-user">2. Relasi One to Many (1:N)</span>
+              <p style="font-size: 11px; color: #475569;">
+                <strong>Wilayah / User ↔ LaporanSampah:</strong> 1 Wilayah atau 1 Warga dapat memiliki banyak laporan sampah masyarakat.
+              </p>
+            </div>
+
+            <div class="sub-box">
+              <span class="badge badge-purple">3. Relasi Many to Many (N:N)</span>
+              <p style="font-size: 11px; color: #475569;">
+                <strong>Petugas ↔ Jadwal (via PetugasJadwal):</strong> 1 Petugas menangani banyak jadwal, dan 1 Jadwal dikerjakan oleh tim petugas.<br>
+                <strong>BankSampah ↔ Jenis (via BankSampahJenis):</strong> 1 Bank Sampah menerima banyak jenis sampah daur ulang dengan harga beli per kg berbeda.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <!-- FOOTER -->
+      <div class="footer-doc">
+        <span>EcoResik - Sistem Pengelolaan Sampah Terpadu</span>
+        <span>Dokumen User Manual Resmi &copy; 2026</span>
+      </div>
+
     </div>
-
   </div>
 
 </body>
