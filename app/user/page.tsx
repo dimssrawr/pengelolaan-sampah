@@ -27,6 +27,25 @@ interface FotoSampah {
   imageUrl: string;
 }
 
+interface RewardItem {
+  id: string;
+  nama: string;
+  poin: number;
+  icon: string;
+  kategori: string;
+  deskripsi: string;
+}
+
+const REWARD_ITEMS: RewardItem[] = [
+  { id: "tumbler", nama: "Tumbler Stainless EcoResik", poin: 500, icon: "🥤", kategori: "Eco Merchandise", deskripsi: "Bebas sampah botol plastik sekali pakai saat bepergian." },
+  { id: "totebag", nama: "Tote Bag Belanja Kanvas", poin: 300, icon: "👜", kategori: "Eco Merchandise", deskripsi: "Pengganti kantong plastik kresek belanja ke pasar/minimarket." },
+  { id: "cutlery", nama: "Set Sendok & Sedotan Stainless", poin: 250, icon: "🍴", kategori: "Zero Waste", deskripsi: "Set alat makan reusable agar tidak menggunakan plastik sekali pakai." },
+  { id: "kopi", nama: "Voucher Kopi Mitra EcoResik", poin: 350, icon: "☕", kategori: "Minuman & Kafe", deskripsi: "Gratis 1 cangkir kopi / diskon 50% di kedai kopi mitra lingkungan." },
+  { id: "pln", nama: "Token Listrik PLN Rp 20.000", poin: 800, icon: "⚡", kategori: "Subsidi Energi", deskripsi: "Bantuan token listrik bagi warga yang aktif memilah sampah." },
+  { id: "kompos", nama: "Pupuk Kompos Organik 5 Kg", poin: 200, icon: "🌿", kategori: "Ekonomi Sirkular", deskripsi: "Dihasilkan langsung dari olahan sampah organik warga setempat." },
+  { id: "bibit", nama: "Bibit Sayur Hidroponik", poin: 150, icon: "🌱", kategori: "Penghijauan", deskripsi: "Bibit kangkung, bayam & cabai untuk pekarangan rumah hijau." },
+];
+
 interface LaporanSampah {
   id: string;
   berat: number;
@@ -51,6 +70,11 @@ export default function UserDashboard() {
   const [regions, setRegions] = useState<Wilayah[]>([]);
   const [loadingData, setLoadingData] = useState(true);
 
+  // EcoRewards Gamification states
+  const [showRewardModal, setShowRewardModal] = useState(false);
+  const [redeemedList, setRedeemedList] = useState<{ id: string; nama: string; poin: number; code: string; date: string }[]>([]);
+  const [claimedVoucher, setClaimedVoucher] = useState<{ nama: string; code: string } | null>(null);
+
   // Forms states
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -63,6 +87,31 @@ export default function UserDashboard() {
   const [wilayahId, setWilayahId] = useState("");
   const [fotoFile, setFotoFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Calculate points: 1 Kg = 100 Poin, plus 500 Welcome Bonus Poin
+  const totalKg = logs.reduce((sum, l) => sum + Number(l.berat || 0), 0);
+  const earnedPoin = Math.floor(totalKg * 100);
+  const welcomeBonus = 500;
+  const spentPoin = redeemedList.reduce((sum, r) => sum + r.poin, 0);
+  const currentPoin = earnedPoin + welcomeBonus - spentPoin;
+
+  const handleRedeem = (item: RewardItem) => {
+    if (currentPoin < item.poin) {
+      setErrorMsg(`Koin EcoPoints kamu belum cukup untuk menukar ${item.nama}. Butuh ${item.poin - currentPoin} koin lagi!`);
+      return;
+    }
+    const code = `ECO-${Math.random().toString(36).substring(2, 6).toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`;
+    const newRedeemed = {
+      id: item.id,
+      nama: item.nama,
+      poin: item.poin,
+      code,
+      date: new Date().toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" }),
+    };
+    setRedeemedList([newRedeemed, ...redeemedList]);
+    setClaimedVoucher({ nama: item.nama, code });
+    setSuccessMsg(`🎉 Berhasil menukar ${item.nama}! Kode Voucher: ${code}`);
+  };
 
   // Auth protection
   useEffect(() => {
@@ -304,6 +353,44 @@ export default function UserDashboard() {
       {/* Main Workspace */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-6">
         
+        {/* EcoRewards Banner & Coin Balance */}
+        <section className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-emerald-900/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
+          <div className="absolute -right-8 -bottom-8 w-48 h-48 rounded-full bg-white/10 blur-2xl pointer-events-none" />
+          <div className="flex flex-col gap-2 relative z-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 border border-white/20 text-xs font-semibold w-fit text-emerald-100">
+              🪙 Program Gamifikasi EcoRewards Warga
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+              Kumpulkan Koin, Dapatkan Hadiah Keren!
+            </h1>
+            <p className="text-xs sm:text-sm text-emerald-100 max-w-xl">
+              Setiap 1 Kg sampah tervalidasi bernilai <strong>100 EcoPoints</strong>. Tukarkan koinmu dengan Tumbler Stainless, Voucher Kopi, Pupuk Kompos, hingga Token Listrik!
+            </p>
+          </div>
+
+          <div className="flex items-center gap-5 relative z-10 w-full md:w-auto justify-between md:justify-end">
+            <div className="flex flex-col items-start md:items-end">
+              <span className="text-xs text-emerald-200 font-semibold uppercase tracking-wider">Saldo Koin Saya</span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-3xl font-black tracking-tight text-amber-300 drop-shadow-sm">
+                  {currentPoin.toLocaleString()}
+                </span>
+                <span className="text-xs font-bold text-emerald-100 uppercase">Poin</span>
+              </div>
+              <span className="text-[11px] text-emerald-200">
+                (Dari {totalKg.toFixed(1)} Kg + Bonus 500 Poin)
+              </span>
+            </div>
+
+            <button
+              onClick={() => setShowRewardModal(true)}
+              className="px-5 py-3 rounded-2xl bg-amber-400 hover:bg-amber-300 text-zinc-900 font-extrabold text-xs shadow-lg shadow-amber-900/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 shrink-0 cursor-pointer"
+            >
+              <span className="text-base">🎁</span>
+              <span>Tukar Hadiah</span>
+            </button>
+          </div>
+        </section>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Form Section */}
           <section className="bg-white dark:bg-[#0d0d10] border border-zinc-200/50 dark:border-zinc-800/50 p-6 rounded-2xl flex flex-col gap-5">
@@ -497,6 +584,181 @@ export default function UserDashboard() {
           </section>
         </div>
       </main>
+
+      {/* EcoRewards Modal Dialog */}
+      {showRewardModal && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+          <div className="relative w-full max-w-4xl bg-white dark:bg-[#0f0f13] rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-2xl overflow-hidden my-8 max-h-[90vh] flex flex-col">
+            
+            {/* Modal Header */}
+            <div className="p-6 border-b border-zinc-100 dark:border-zinc-800/80 flex items-center justify-between bg-zinc-50/50 dark:bg-zinc-900/30">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl">
+                  🎁
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-zinc-800 dark:text-zinc-100">
+                    Katalog Hadiah EcoRewards
+                  </h3>
+                  <p className="text-xs text-zinc-500">
+                    Tukarkan koin hasil pilah sampahmu dengan hadiah bermanfaat.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/50 text-emerald-700 dark:text-emerald-400 font-bold text-xs">
+                  <span>🪙</span>
+                  <span>{currentPoin.toLocaleString()} Koin Tersedia</span>
+                </div>
+                <button
+                  onClick={() => {
+                    setShowRewardModal(false);
+                    setClaimedVoucher(null);
+                  }}
+                  className="w-9 h-9 rounded-xl bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 flex items-center justify-center text-zinc-500 transition-colors cursor-pointer"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-6 overflow-y-auto space-y-6">
+              
+              {/* Claim Success Banner */}
+              {claimedVoucher && (
+                <div className="p-5 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-emerald-500/10 border-2 border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="flex items-center gap-3.5">
+                    <span className="text-3xl">🎉</span>
+                    <div>
+                      <h4 className="text-sm font-bold text-emerald-800 dark:text-emerald-300">
+                        Penukaran Berhasil: {claimedVoucher.nama}!
+                      </h4>
+                      <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">
+                        Tunjukkan kode berikut ke Posko EcoResik / Mitra Kafe:
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-emerald-500/40 font-mono font-black text-emerald-600 dark:text-emerald-400 text-sm tracking-wider select-all shadow-sm">
+                      {claimedVoucher.code}
+                    </span>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard?.writeText(claimedVoucher.code);
+                        setSuccessMsg(`Kode voucher ${claimedVoucher.code} disalin ke clipboard!`);
+                      }}
+                      className="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow transition-colors cursor-pointer"
+                    >
+                      Salin
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Items Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {REWARD_ITEMS.map((item) => {
+                  const canAfford = currentPoin >= item.poin;
+                  return (
+                    <div
+                      key={item.id}
+                      className={`relative flex flex-col justify-between p-4 rounded-2xl border transition-all ${
+                        canAfford
+                          ? "bg-white dark:bg-zinc-900/60 border-zinc-200 dark:border-zinc-800 hover:border-emerald-500/50 hover:shadow-lg hover:shadow-emerald-500/5"
+                          : "bg-zinc-50/50 dark:bg-zinc-900/20 border-zinc-200/50 dark:border-zinc-800/40 opacity-75"
+                      }`}
+                    >
+                      <div>
+                        <div className="flex items-start justify-between gap-2 mb-3">
+                          <span className="text-3xl p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800">
+                            {item.icon}
+                          </span>
+                          <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500">
+                            {item.kategori}
+                          </span>
+                        </div>
+                        <h4 className="text-sm font-bold text-zinc-800 dark:text-zinc-100 mb-1">
+                          {item.nama}
+                        </h4>
+                        <p className="text-xs text-zinc-500 leading-relaxed line-clamp-2">
+                          {item.deskripsi}
+                        </p>
+                      </div>
+
+                      <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-1">
+                          <span className="text-sm font-black text-amber-500">{item.poin}</span>
+                          <span className="text-[11px] font-semibold text-zinc-400">Poin</span>
+                        </div>
+
+                        <button
+                          onClick={() => handleRedeem(item)}
+                          disabled={!canAfford}
+                          className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                            canAfford
+                              ? "bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-600/20 hover:scale-105 active:scale-95 cursor-pointer"
+                              : "bg-zinc-100 dark:bg-zinc-800 text-zinc-400 cursor-not-allowed"
+                          }`}
+                        >
+                          {canAfford ? "Tukar Sekarang" : "Koin Kurang"}
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Redeemed History */}
+              {redeemedList.length > 0 && (
+                <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800">
+                  <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-3">
+                    Riwayat Penukaran Sesi Ini ({redeemedList.length})
+                  </h4>
+                  <div className="space-y-2">
+                    {redeemedList.map((r, i) => (
+                      <div
+                        key={i}
+                        className="flex items-center justify-between p-3 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 text-xs"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-zinc-800 dark:text-zinc-200">{r.nama}</span>
+                          <span className="text-zinc-400">• {r.date}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <span className="font-mono text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-900/50">
+                            {r.code}
+                          </span>
+                          <span className="text-zinc-400 font-medium">-{r.poin} Poin</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-4 bg-zinc-50 dark:bg-zinc-900/50 border-t border-zinc-100 dark:border-zinc-800 flex justify-between items-center text-xs text-zinc-500">
+              <span>💡 Koin didapat otomatis saat laporan sampah Anda disetujui.</span>
+              <button
+                onClick={() => {
+                  setShowRewardModal(false);
+                  setClaimedVoucher(null);
+                }}
+                className="px-4 py-2 rounded-xl bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 font-semibold transition-colors cursor-pointer"
+              >
+                Tutup
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="bg-white dark:bg-[#070708] border-t border-zinc-200/50 dark:border-zinc-800/50 py-8 mt-12 transition-colors duration-300">
