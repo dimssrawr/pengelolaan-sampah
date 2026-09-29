@@ -40,6 +40,7 @@ model LaporanSampah {
   id            String      @id @default(uuid()) @db.Uuid // UUID Primary Key
   berat         Float                                     // Required (Not Null)
   tanggalLapor  DateTime    @default(now())               // Required (Not Null)
+  status        String      @default("PENDING")           // PENDING, TERVERIFIKASI, DITOLAK
   
   // Relations (Foreign Keys)
   userId        String      @db.Uuid

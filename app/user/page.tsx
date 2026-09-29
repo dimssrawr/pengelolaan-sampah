@@ -49,6 +49,7 @@ const REWARD_ITEMS: RewardItem[] = [
 interface LaporanSampah {
   id: string;
   berat: number;
+  status: string; // PENDING | TERVERIFIKASI | DITOLAK
   tanggalLapor: string;
   userId: string;
   user: User;
@@ -88,9 +89,10 @@ export default function UserDashboard() {
   const [fotoFile, setFotoFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Calculate points: 1 Kg = 100 Poin (Murni dari sampah yang dilaporkan)
-  const totalKg = logs.reduce((sum, l) => sum + Number(l.berat || 0), 0);
-  const earnedPoin = Math.floor(totalKg * 100);
+  // Calculate points: Hanya sampah yang statusnya TERVERIFIKASI (di-ACC Admin) yang menghasilkan koin!
+  const verifiedLogs = logs.filter((l) => l.status === "TERVERIFIKASI");
+  const totalKgVerified = verifiedLogs.reduce((sum, l) => sum + Number(l.berat || 0), 0);
+  const earnedPoin = Math.floor(totalKgVerified * 100);
   const spentPoin = redeemedList.reduce((sum, r) => sum + r.poin, 0);
   const currentPoin = Math.max(0, earnedPoin - spentPoin);
 
@@ -377,7 +379,7 @@ export default function UserDashboard() {
                 <span className="text-xs font-bold text-emerald-100 uppercase">Poin</span>
               </div>
               <span className="text-[11px] text-emerald-200">
-                (Dari total {totalKg.toFixed(1)} Kg sampah dilaporkan)
+                (Dari total {totalKgVerified.toFixed(1)} Kg sampah disetujui Admin)
               </span>
             </div>
 
@@ -519,6 +521,7 @@ export default function UserDashboard() {
                       <th className="px-6 py-3.5">Foto Bukti</th>
                       <th className="px-6 py-3.5">Kategori</th>
                       <th className="px-6 py-3.5">Berat</th>
+                      <th className="px-6 py-3.5">Status Verifikasi</th>
                       <th className="px-6 py-3.5">Lokasi & Pelapor</th>
                       <th className="px-6 py-3.5 text-center">Aksi</th>
                     </tr>
@@ -545,6 +548,21 @@ export default function UserDashboard() {
                         </td>
                         <td className="px-6 py-4 font-semibold text-zinc-700 dark:text-zinc-300">
                           {log.berat} Kg
+                        </td>
+                        <td className="px-6 py-4">
+                          {log.status === "TERVERIFIKASI" ? (
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900/50 shadow-xs">
+                              <span>✅</span> Disetujui (+{Math.floor(Number(log.berat) * 100)} Koin)
+                            </span>
+                          ) : log.status === "DITOLAK" ? (
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/50">
+                              <span>❌</span> Ditolak Admin
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-900/50">
+                              <span className="inline-block animate-pulse">⏳</span> Menunggu Acc Admin
+                            </span>
+                          )}
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex flex-col gap-0.5 text-xs text-zinc-500">

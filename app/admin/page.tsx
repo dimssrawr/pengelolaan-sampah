@@ -30,6 +30,7 @@ interface FotoSampah {
 interface LaporanSampah {
   id: string;
   berat: number;
+  status: string;
   tanggalLapor: string;
   userId: string;
   user: User;
@@ -255,6 +256,29 @@ export default function AdminDashboard() {
     setWilayahId(log.wilayahId);
     setFotoFile(null); // Optional new photo
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // Verifikasi Laporan Sampah (ACC / Tolak) oleh Admin
+  const handleVerifikasiStatus = async (id: string, newStatus: "TERVERIFIKASI" | "DITOLAK") => {
+    try {
+      const res = await fetch(`/api/sampah?id=${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Gagal memverifikasi laporan.");
+      }
+      setSuccessMsg(
+        newStatus === "TERVERIFIKASI"
+          ? "🎉 Berhasil menyetujui (ACC) laporan sampah! Koin EcoPoints warga telah aktif."
+          : "Laporan sampah telah ditolak."
+      );
+      fetchData(adminUser?.role);
+    } catch (err: any) {
+      setErrorMsg(err.message);
+    }
   };
 
   // Submit Jenis (Create / Update)
@@ -613,6 +637,7 @@ export default function AdminDashboard() {
                         <th className="px-6 py-3.5">Foto Bukti</th>
                         <th className="px-6 py-3.5">Kategori</th>
                         <th className="px-6 py-3.5">Berat</th>
+                        <th className="px-6 py-3.5">Status Verifikasi (ACC)</th>
                         <th className="px-6 py-3.5">Lokasi & Pelapor</th>
                         <th className="px-6 py-3.5 text-center">Aksi</th>
                       </tr>
@@ -639,6 +664,52 @@ export default function AdminDashboard() {
                           </td>
                           <td className="px-6 py-4 font-semibold text-zinc-700 dark:text-zinc-300">
                             {log.berat} Kg
+                          </td>
+                          <td className="px-6 py-4">
+                            {log.status === "TERVERIFIKASI" ? (
+                              <div className="flex items-center gap-2">
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900/50">
+                                  <span>✅</span> Disetujui
+                                </span>
+                                <button
+                                  onClick={() => handleVerifikasiStatus(log.id, "DITOLAK")}
+                                  className="text-[10px] text-zinc-400 hover:text-rose-500 underline cursor-pointer"
+                                  title="Batalkan & Tolak"
+                                >
+                                  Tolak
+                                </button>
+                              </div>
+                            ) : log.status === "DITOLAK" ? (
+                              <div className="flex items-center gap-2">
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900/50">
+                                  <span>❌</span> Ditolak
+                                </span>
+                                <button
+                                  onClick={() => handleVerifikasiStatus(log.id, "TERVERIFIKASI")}
+                                  className="text-[10px] text-zinc-400 hover:text-emerald-500 underline cursor-pointer"
+                                  title="Setujui Ulang"
+                                >
+                                  Setujui
+                                </button>
+                              </div>
+                            ) : (
+                              <div className="flex items-center gap-1.5">
+                                <button
+                                  onClick={() => handleVerifikasiStatus(log.id, "TERVERIFIKASI")}
+                                  className="px-2.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px] shadow-sm flex items-center gap-1 cursor-pointer transition-all active:scale-95 hover:shadow-emerald-600/20"
+                                  title="Setujui Laporan & Terbitkan Koin Warga"
+                                >
+                                  <span>✅</span> Acc (Setujui)
+                                </button>
+                                <button
+                                  onClick={() => handleVerifikasiStatus(log.id, "DITOLAK")}
+                                  className="px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 font-bold text-[11px] border border-rose-200 dark:border-rose-900/60 cursor-pointer transition-all active:scale-95"
+                                  title="Tolak Laporan Sampah"
+                                >
+                                  <span>❌</span> Tolak
+                                </button>
+                              </div>
+                            )}
                           </td>
                           <td className="px-6 py-4">
                             <div className="flex flex-col gap-0.5 text-xs text-zinc-500">

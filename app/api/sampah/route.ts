@@ -8,6 +8,7 @@ const fallbackReports = [
   {
     id: "e871050c-e2f4-4ea8-b80c-7832626e95b0",
     berat: 7.8,
+    status: "TERVERIFIKASI",
     tanggalLapor: "2026-07-24T01:51:25.000Z",
     userId: "faa28bac-d970-4b3c-b9b3-ed24b409971a",
     jenisSampahId: "59081d27-6efc-4570-992f-cf6fa444698f",
@@ -20,6 +21,7 @@ const fallbackReports = [
   {
     id: "61fbc4aa-8f0a-4299-8e40-bbd0e0c031c1",
     berat: 4.5,
+    status: "TERVERIFIKASI",
     tanggalLapor: "2026-07-24T01:49:54.000Z",
     userId: "b401c863-fa39-4c66-a7a3-640780eab8c4",
     jenisSampahId: "78fba98a-b45f-4860-9bae-1b139b598f18",
@@ -151,6 +153,7 @@ export async function POST(req: NextRequest) {
             userId: user.userId,
             jenisSampahId,
             wilayahId,
+            status: "PENDING",
           },
         });
 
@@ -180,6 +183,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         id: crypto.randomUUID(),
         berat,
+        status: "PENDING",
         tanggalLapor: new Date().toISOString(),
         userId: user.userId,
         jenisSampahId,
@@ -195,7 +199,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// PUT: Update an existing report
+// PUT: Update an existing report or Admin verification
 export async function PUT(req: NextRequest) {
   try {
     const user = await verifyUser();
@@ -208,22 +212,44 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ error: "ID dibutuhkan" }, { status: 400 });
     }
 
-    const formData = await req.formData();
-    const beratStr = formData.get("berat") as string;
-    const jenisSampahId = formData.get("jenisSampahId") as string;
-    const wilayahId = formData.get("wilayahId") as string;
-    const file = formData.get("foto") as File | null;
+    let berat: number | undefined;
+    let jenisSampahId: string | undefined;
+    let wilayahId: string | undefined;
+    let status: string | undefined;
 
-    const berat = beratStr ? parseFloat(beratStr) : undefined;
+    const contentType = req.headers.get("content-type") || "";
+    if (contentType.includes("application/json")) {
+      const body = await req.json();
+      if (body.berat !== undefined) berat = parseFloat(body.berat);
+      if (body.jenisSampahId) jenisSampahId = body.jenisSampahId;
+      if (body.wilayahId) wilayahId = body.wilayahId;
+      if (body.status) status = body.status;
+    } else {
+      const formData = await req.formData();
+      const beratStr = formData.get("berat") as string | null;
+      if (beratStr) berat = parseFloat(beratStr);
+      jenisSampahId = (formData.get("jenisSampahId") as string) || undefined;
+      wilayahId = (formData.get("wilayahId") as string) || undefined;
+      status = (formData.get("status") as string) || undefined;
+    }
+
+    const updateData: any = {};
+    if (berat !== undefined && !isNaN(berat)) updateData.berat = berat;
+    if (jenisSampahId) updateData.jenisSampahId = jenisSampahId;
+    if (wilayahId) updateData.wilayahId = wilayahId;
+
+    // Admin-only verification
+    if (status) {
+      if (user.role !== "ADMIN") {
+        return NextResponse.json({ error: "Hanya Admin yang dapat memverifikasi laporan sampah." }, { status: 403 });
+      }
+      updateData.status = status;
+    }
 
     try {
       const updated = await prisma.laporanSampah.update({
         where: { id },
-        data: {
-          ...(berat !== undefined && { berat }),
-          ...(jenisSampahId && { jenisSampahId }),
-          ...(wilayahId && { wilayahId }),
-        },
+        data: updateData,
         include: {
           jenisSampah: true,
           wilayah: true,
@@ -233,7 +259,7 @@ export async function PUT(req: NextRequest) {
       });
       return NextResponse.json(updated);
     } catch {
-      return NextResponse.json({ id, berat, jenisSampahId, wilayahId, success: true });
+      return NextResponse.json({ id, ...updateData, success: true });
     }
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
