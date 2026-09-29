@@ -46,6 +46,8 @@ next-env.d.ts
 
 # User Manual & PDF
 *.pdf
+*.pptx
 public/*.pdf
 public/user-manual*.html
+scripts/create-pptx.mjs
 
