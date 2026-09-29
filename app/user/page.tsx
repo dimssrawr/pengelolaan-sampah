@@ -88,12 +88,11 @@ export default function UserDashboard() {
   const [fotoFile, setFotoFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Calculate points: 1 Kg = 100 Poin, plus 500 Welcome Bonus Poin
+  // Calculate points: 1 Kg = 100 Poin (Murni dari sampah yang dilaporkan)
   const totalKg = logs.reduce((sum, l) => sum + Number(l.berat || 0), 0);
   const earnedPoin = Math.floor(totalKg * 100);
-  const welcomeBonus = 500;
   const spentPoin = redeemedList.reduce((sum, r) => sum + r.poin, 0);
-  const currentPoin = earnedPoin + welcomeBonus - spentPoin;
+  const currentPoin = Math.max(0, earnedPoin - spentPoin);
 
   const handleRedeem = (item: RewardItem) => {
     if (currentPoin < item.poin) {
@@ -378,7 +377,7 @@ export default function UserDashboard() {
                 <span className="text-xs font-bold text-emerald-100 uppercase">Poin</span>
               </div>
               <span className="text-[11px] text-emerald-200">
-                (Dari {totalKg.toFixed(1)} Kg + Bonus 500 Poin)
+                (Dari total {totalKg.toFixed(1)} Kg sampah dilaporkan)
               </span>
             </div>
 
